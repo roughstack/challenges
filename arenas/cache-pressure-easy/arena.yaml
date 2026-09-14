@@ -1,0 +1,50 @@
+apiVersion: bytearena.dev/v1
+kind: Arena
+metadata:
+  id: cache-pressure-easy
+  version: 1.0.0
+  title: Cache Pressure — Easy
+  visibility: public
+  mode: practice
+  difficulty: easy
+  tags: [cache, locality, go]
+submission:
+  language: go
+  entrypoint: starter/cache.go
+  interface: bytearena.cache.Cache/v1
+build:
+  command: ["go", "test", "./arenas/cache-pressure-easy/..."]
+  timeoutSeconds: 60
+run:
+  command: ["go", "run", "./arenas/cache-pressure-easy/cmd/smoke", "--seed", "12345"]
+  protocol: bytearena.result/v1
+  timeoutSeconds: 120
+resources:
+  cpuCount: 1
+  memoryMiB: 256
+  diskMiB: 512
+  network: disabled
+  maxProcesses: 16
+evaluation:
+  correctnessGate: true
+  publicSuite: public-v1
+  officialSuiteContract: official-v1
+  repetitions: 3
+  warmupRuns: 1
+metrics:
+  - id: backing_reads
+    unit: operations
+    direction: minimize
+    weight: 0.7
+  - id: metadata_work
+    unit: operations
+    direction: minimize
+    weight: 0.2
+  - id: peak_accounted_bytes
+    unit: bytes
+    direction: minimize
+    weight: 0.1
+scoring:
+  model: weighted-normalized/v1
+  config: scoring.yaml
+capabilities: [deterministic-workload, exact-byte-accounting]

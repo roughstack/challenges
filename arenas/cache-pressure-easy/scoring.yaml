@@ -1,0 +1,14 @@
+version: 1
+score_range: [0, 10000]
+correctness_gate: true
+public_score: unofficial
+metrics:
+  backing_reads:
+    weight: 0.70
+    direction: minimize
+  metadata_work:
+    weight: 0.20
+    direction: minimize
+  peak_accounted_bytes:
+    weight: 0.10
+    direction: minimize
