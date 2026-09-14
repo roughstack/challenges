@@ -3,6 +3,7 @@ package harness
 
 import (
 	"bytes"
+	"strconv"
 
 	"github.com/bytearena/arenas/arenas/cache-pressure-easy/contract"
 	"github.com/bytearena/arenas/arenas/cache-pressure-easy/workload"
@@ -34,7 +35,7 @@ type Result struct {
 	ProtocolVersion int      `json:"protocol_version"`
 	ArenaID         string   `json:"arena_id"`
 	ArenaVersion    string   `json:"arena_version"`
-	Seed            uint64   `json:"seed"`
+	Seed            string   `json:"seed"`
 	Verdict         string   `json:"verdict"`
 	Score           int      `json:"score"`
 	Metrics         Metrics  `json:"metrics"`
@@ -66,7 +67,7 @@ func Evaluate(seed uint64, config PublicConfig, factory contract.Factory) Result
 		ProtocolVersion: 1,
 		ArenaID:         ArenaID,
 		ArenaVersion:    ArenaVersion,
-		Seed:            seed,
+		Seed:            strconv.FormatUint(seed, 10),
 		Verdict:         "pass",
 		Score:           0,
 		Violations:      []string{},
