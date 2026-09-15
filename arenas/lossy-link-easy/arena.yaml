@@ -1,0 +1,58 @@
+apiVersion: bytearena.dev/v1
+kind: Arena
+metadata:
+  id: lossy-link-easy
+  version: 1.0.0
+  title: Lossy Link — Easy
+  visibility: public
+  mode: practice
+  difficulty: easy
+  tags: [networking, reliability, stop-and-wait, go]
+submission:
+  language: go
+  entrypoint: starter/starter.go
+  interface: bytearena.lossylink.Endpoint/v1
+build:
+  command: ["go", "test", "./arenas/lossy-link-easy/..."]
+  timeoutSeconds: 60
+run:
+  command: ["go", "run", "./arenas/lossy-link-easy/cmd/smoke", "--seed", "12345"]
+  protocol: bytearena.result/v1
+  timeoutSeconds: 120
+resources:
+  cpuCount: 1
+  memoryMiB: 256
+  diskMiB: 512
+  network: disabled
+  maxProcesses: 16
+evaluation:
+  correctnessGate: true
+  publicSuite: public-v1
+  officialSuiteContract: official-v1
+  repetitions: 3
+  warmupRuns: 1
+metrics:
+  - id: completion_ticks
+    unit: ticks
+    direction: minimize
+    weight: 0.5
+  - id: transmitted_bytes
+    unit: bytes
+    direction: minimize
+    weight: 0.3
+  - id: packet_count
+    unit: packets
+    direction: minimize
+    weight: 0.15
+  - id: retransmissions
+    unit: packets
+    direction: minimize
+    weight: 0.0
+  - id: state_bytes
+    unit: bytes
+    direction: minimize
+    weight: 0.05
+scoring:
+  model: weighted-normalized/v1
+  config: scoring.yaml
+capabilities: [deterministic-workload, deterministic-faults, exact-byte-accounting]
