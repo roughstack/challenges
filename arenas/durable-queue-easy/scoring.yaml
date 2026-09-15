@@ -1,0 +1,17 @@
+version: 1
+score_range: [0, 10000]
+correctness_gate: true
+public_score: unofficial
+metrics:
+  completed_jobs:
+    weight: 0.45
+    direction: maximize
+  logical_queue_wait:
+    weight: 0.25
+    direction: minimize
+  sync_work:
+    weight: 0.15
+    direction: minimize
+  peak_bytes:
+    weight: 0.15
+    direction: minimize
