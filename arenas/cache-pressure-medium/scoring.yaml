@@ -1,0 +1,20 @@
+version: 1
+score_range: [0, 10000]
+correctness_gate: true
+public_score: unofficial
+metrics:
+  weighted_backing_cost:
+    weight: 0.50
+    direction: minimize
+  byte_hit_rate:
+    weight: 0.20
+    direction: maximize
+  request_hit_rate:
+    weight: 0.10
+    direction: maximize
+  logical_policy_work:
+    weight: 0.10
+    direction: minimize
+  peak_memory_headroom:
+    weight: 0.10
+    direction: minimize
