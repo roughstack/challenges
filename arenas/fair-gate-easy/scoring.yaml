@@ -1,0 +1,10 @@
+metrics:
+  decisions_per_second:
+    weight: 0.60
+    direction: maximize
+  arithmetic_work:
+    weight: 0.25
+    direction: minimize
+  alloc_bytes:
+    weight: 0.15
+    direction: minimize

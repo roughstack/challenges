@@ -1,0 +1,50 @@
+apiVersion: bytearena.dev/v1
+kind: Arena
+metadata:
+  id: fair-gate-easy
+  version: 1.0.0
+  title: Fair Gate — Easy
+  visibility: public
+  mode: practice
+  difficulty: easy
+  tags: [rate-limiting, token-bucket, virtual-clock, go]
+submission:
+  language: go
+  entrypoint: starter/starter.go
+  interface: bytearena.fairgate.Limiter/v1
+build:
+  command: ["go", "test", "./arenas/fair-gate-easy/..."]
+  timeoutSeconds: 60
+run:
+  command: ["go", "run", "./arenas/fair-gate-easy/cmd/smoke", "--seed", "12345"]
+  protocol: bytearena.result/v1
+  timeoutSeconds: 120
+resources:
+  cpuCount: 1
+  memoryMiB: 256
+  diskMiB: 512
+  network: disabled
+  maxProcesses: 16
+evaluation:
+  correctnessGate: true
+  publicSuite: public-v1
+  officialSuiteContract: official-v1
+  repetitions: 3
+  warmupRuns: 1
+metrics:
+  - id: decisions_per_second
+    unit: decisions/second
+    direction: maximize
+    weight: 0.60
+  - id: arithmetic_work
+    unit: operations
+    direction: minimize
+    weight: 0.25
+  - id: alloc_bytes
+    unit: bytes
+    direction: minimize
+    weight: 0.15
+scoring:
+  model: weighted-normalized/v1
+  config: scoring.yaml
+capabilities: [deterministic-workload, deterministic-virtual-clock]
