@@ -1,0 +1,20 @@
+version: 1
+score_range: [0, 10000]
+correctness_gate: true
+public_score: unofficial
+metrics:
+  append_throughput:
+    weight: 0.35
+    direction: maximize
+  recovery_bytes_read:
+    weight: 0.25
+    direction: minimize
+  write_overhead:
+    weight: 0.20
+    direction: minimize
+  allocations:
+    weight: 0.10
+    direction: minimize
+  disk_bytes:
+    weight: 0.10
+    direction: minimize
