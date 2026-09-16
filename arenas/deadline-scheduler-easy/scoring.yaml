@@ -1,0 +1,20 @@
+version: 1
+score_range: [0, 10000]
+correctness_gate: true
+public_score: unofficial
+metrics:
+  mean_flow_ticks:
+    weight: 0.40
+    direction: minimize
+  p95_flow_ticks:
+    weight: 0.25
+    direction: minimize
+  starvation_penalty:
+    weight: 0.20
+    direction: minimize
+  scheduler_work:
+    weight: 0.10
+    direction: minimize
+  peak_state_bytes:
+    weight: 0.05
+    direction: minimize
