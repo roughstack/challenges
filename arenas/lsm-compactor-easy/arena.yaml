@@ -1,0 +1,54 @@
+apiVersion: bytearena.dev/v1
+kind: Arena
+metadata:
+  id: lsm-compactor-easy
+  version: 1.0.0
+  title: LSM Compactor — Easy
+  visibility: public
+  mode: practice
+  difficulty: easy
+  tags: [lsm, compaction, storage, go]
+submission:
+  language: go
+  entrypoint: starter/starter.go
+  interface: bytearena.lsmcompactor.Policy/v1
+build:
+  command: ["go", "test", "./arenas/lsm-compactor-easy/..."]
+  timeoutSeconds: 60
+run:
+  command: ["go", "run", "./arenas/lsm-compactor-easy/cmd/smoke", "--seed", "12345"]
+  protocol: bytearena.result/v1
+  timeoutSeconds: 120
+resources:
+  cpuCount: 1
+  memoryMiB: 256
+  diskMiB: 512
+  network: disabled
+  maxProcesses: 16
+evaluation:
+  correctnessGate: true
+  publicSuite: public-v1
+  officialSuiteContract: official-v1
+  repetitions: 3
+  warmupRuns: 1
+metrics:
+  - id: read_amplification_bps
+    unit: basis-points
+    direction: minimize
+    weight: 0.40
+  - id: bytes_rewritten
+    unit: bytes
+    direction: minimize
+    weight: 0.35
+  - id: compaction_stall_ticks
+    unit: ticks
+    direction: minimize
+    weight: 0.15
+  - id: peak_disk_bytes
+    unit: bytes
+    direction: minimize
+    weight: 0.10
+scoring:
+  model: weighted-normalized/v1
+  config: scoring.yaml
+capabilities: [deterministic-workload, exact-byte-accounting]
