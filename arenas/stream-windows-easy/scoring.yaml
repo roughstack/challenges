@@ -1,0 +1,17 @@
+version: 1
+score_range: [0, 10000]
+correctness_gate: true
+public_score: unofficial
+metrics:
+  events_per_second:
+    weight: 0.45
+    direction: maximize
+  peak_state_bytes:
+    weight: 0.30
+    direction: minimize
+  output_delay:
+    weight: 0.15
+    direction: minimize
+  alloc_bytes:
+    weight: 0.10
+    direction: minimize
