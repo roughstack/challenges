@@ -1,0 +1,58 @@
+apiVersion: bytearena.dev/v1
+kind: Arena
+metadata:
+  id: chunk-store-easy
+  version: 1.0.0
+  title: Chunk Store — Easy
+  visibility: public
+  mode: practice
+  difficulty: easy
+  tags: [storage, compression, checksum, random-read, go]
+submission:
+  language: go
+  entrypoint: starter/starter.go
+  interface: bytearena.chunkstore.Store/v1
+build:
+  command: ["go", "test", "./arenas/chunk-store-easy/..."]
+  timeoutSeconds: 60
+run:
+  command: ["go", "run", "./arenas/chunk-store-easy/cmd/smoke", "--seed", "12345"]
+  protocol: bytearena.result/v1
+  timeoutSeconds: 120
+resources:
+  cpuCount: 1
+  memoryMiB: 256
+  diskMiB: 512
+  network: disabled
+  maxProcesses: 16
+evaluation:
+  correctnessGate: true
+  publicSuite: public-v1
+  officialSuiteContract: official-v1
+  repetitions: 3
+  warmupRuns: 1
+metrics:
+  - id: stored_bytes
+    unit: bytes
+    direction: minimize
+    weight: 0.35
+  - id: random_read_logical_bytes
+    unit: bytes
+    direction: minimize
+    weight: 0.30
+  - id: write_cpu_work
+    unit: operations
+    direction: minimize
+    weight: 0.15
+  - id: read_cpu_work
+    unit: operations
+    direction: minimize
+    weight: 0.15
+  - id: index_memory_bytes
+    unit: bytes
+    direction: minimize
+    weight: 0.05
+scoring:
+  model: weighted-normalized/v1
+  config: scoring.yaml
+capabilities: [deterministic-workload, deterministic-faults, exact-byte-accounting]

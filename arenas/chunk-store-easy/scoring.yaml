@@ -1,0 +1,20 @@
+version: 1
+score_range: [0, 10000]
+correctness_gate: true
+public_score: unofficial
+metrics:
+  stored_bytes:
+    weight: 0.35
+    direction: minimize
+  random_read_logical_bytes:
+    weight: 0.30
+    direction: minimize
+  write_cpu_work:
+    weight: 0.15
+    direction: minimize
+  read_cpu_work:
+    weight: 0.15
+    direction: minimize
+  index_memory_bytes:
+    weight: 0.05
+    direction: minimize
