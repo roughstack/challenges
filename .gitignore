@@ -1,5 +1,34 @@
-.DS_Store
+# Go build and test output
 *.test
 coverage.out
-tmp/
+/coverage/
+/bin/
+/dist/
+/tmp/
 
+# Tool and editor caches
+/.docdex/
+/.docdex-state/
+/.docdex_state/
+/.idea/
+/.vscode/
+.DS_Store
+*.log
+*.swp
+*.swo
+*~
+
+# Language caches that must never enter public arena sources
+__pycache__/
+*.py[cod]
+/.pytest_cache/
+/.mypy_cache/
+/.ruff_cache/
+
+# Secrets and local orchestration material
+.env
+.env.*
+!.env.example
+/work/
+/.claude/
+/.codex/
