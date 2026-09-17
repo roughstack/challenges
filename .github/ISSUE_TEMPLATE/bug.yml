@@ -1,0 +1,32 @@
+name: Arena bug
+description: Report a reproducible public arena defect.
+title: "bug(arena): "
+labels: [bug]
+body:
+  - type: input
+    id: variant
+    attributes:
+      label: Variant and version
+      placeholder: cache-pressure-easy@1.0.0
+    validations:
+      required: true
+  - type: input
+    id: revision
+    attributes:
+      label: Revision
+      description: Exact commit SHA.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Deterministic commands, seed, and sanitized output. Do not include exploit details or private evaluation material.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true

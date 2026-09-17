@@ -1,0 +1,43 @@
+name: Arena proposal
+description: Propose a public systems-engineering arena.
+title: "proposal: "
+labels: [arena-proposal]
+body:
+  - type: textarea
+    id: system
+    attributes:
+      label: Working system and extension point
+      description: Describe the system participants modify and the narrow interface they own.
+    validations:
+      required: true
+  - type: textarea
+    id: learning
+    attributes:
+      label: Transferable engineering lesson
+    validations:
+      required: true
+  - type: textarea
+    id: invariants
+    attributes:
+      label: Correctness invariants and failure model
+    validations:
+      required: true
+  - type: textarea
+    id: metrics
+    attributes:
+      label: Public metrics, workload model, and resource limits
+    validations:
+      required: true
+  - type: textarea
+    id: gaming
+    attributes:
+      label: Gaming and determinism risks
+      description: Discuss public anti-gaming design without disclosing or proposing hidden test material.
+    validations:
+      required: true
+  - type: textarea
+    id: size
+    attributes:
+      label: Expected implementation size and difficulty tiers
+    validations:
+      required: true
