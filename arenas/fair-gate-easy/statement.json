@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "blocks": [
+    {
+      "kind": "prose",
+      "md": "A token bucket turns a steady refill rate into a controlled burst allowance. Requests spend tokens; virtual time earns them back, but the bucket never grows beyond `Burst`."
+    },
+    {
+      "kind": "figure",
+      "label": "FIG 1",
+      "illustration": {
+        "id": "systems.flow",
+        "props": {
+          "label": "Token bucket decision",
+          "nodes": [
+            { "label": "Elapsed ticks", "detail": "Compute lazy refill" },
+            { "label": "Bucket", "detail": "Clamp tokens to Burst", "tone": "accent" },
+            { "label": "Request cost", "detail": "Compare whole tokens", "tone": "warning" },
+            { "label": "Decision", "detail": "Allow or exact RetryAt", "tone": "signal" }
+          ],
+          "edges": ["refill", "then", "emit"]
+        }
+      },
+      "caption": "No timer updates the bucket in the background. Each request first accounts for elapsed virtual time, then makes one deterministic decision."
+    },
+    {
+      "kind": "callout",
+      "tone": "insight",
+      "title": "Keep fractional refill",
+      "md": "The rate is rational: `RateNum / RateDen`. Preserve the remainder between requests or repeated small time steps will refill more slowly than one equivalent large step."
+    },
+    {
+      "kind": "code",
+      "label": "What you implement",
+      "language": "Go",
+      "code": "func NewLimiter(cfg contract.Config) contract.Limiter"
+    },
+    {
+      "kind": "example",
+      "input": "rate = 2 tokens / 3 ticks\nburst = 4, tokens = 1\nrequest: cost 3 at tick 3",
+      "output": "refill 2 → tokens 3\nAllowed = true, tokens left = 0",
+      "explain": "Three elapsed ticks earn exactly two tokens. If only one token were available, `RetryAt` would be the first later tick where accumulated refill reaches the missing amount."
+    },
+    {
+      "kind": "constraints",
+      "items": [
+        "Use checked integer arithmetic; do not use floating point or wall time.",
+        "Allowed decisions return `RetryAt = 0`.",
+        "Zero refill, zero burst, and cost above burst can make a positive-cost request impossible forever.",
+        "Same-tick requests receive no refill between decisions."
+      ]
+    },
+    {
+      "kind": "steps",
+      "items": [
+        { "title": "Normalize configuration", "md": "Treat a zero denominator as one and initialize the bucket at Burst." },
+        { "title": "Refill lazily", "md": "Convert elapsed ticks into whole tokens while carrying fractional remainder and clamping capacity." },
+        { "title": "Invert the rate", "md": "For rejection, solve how many ticks are needed to earn the missing tokens and round up safely." }
+      ]
+    },
+    {
+      "kind": "callout",
+      "tone": "note",
+      "title": "Optimization target",
+      "md": "Once decisions and `RetryAt` are exact, reduce repeated arithmetic and allocation. Throughput rewards the fast path; `arithmetic_work` makes avoidable recomputation visible."
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "blocks": [
+    {
+      "kind": "prose",
+      "md": "The easy cache asks which entry is oldest. This tier asks a harder question: **which data deserves the budget?** Values have different sizes, entries expire, and one cold scan can push out an entire hot working set."
+    },
+    {
+      "kind": "figure",
+      "label": "FIG 1",
+      "illustration": {
+        "id": "systems.flow",
+        "props": {
+          "label": "Scan pollution",
+          "nodes": [
+            { "label": "Hot set", "detail": "Repeated, valuable hits", "tone": "signal" },
+            { "label": "Cold scan", "detail": "One cache-sized pass", "tone": "warning" },
+            { "label": "Single LRU", "detail": "Cold keys become newest", "tone": "danger" },
+            { "label": "Hot set again", "detail": "Useful keys now miss", "tone": "warning" }
+          ],
+          "edges": ["warm", "displaces", "pays twice"]
+        }
+      },
+      "caption": "Pure LRU mistakes recent for reusable. A one-time scan looks important long enough to evict the data that will actually return."
+    },
+    {
+      "kind": "callout",
+      "tone": "insight",
+      "title": "Admission is a policy decision",
+      "md": "Eviction chooses what leaves; admission chooses whether a new value should enter at all. Protecting hot residents from one-hit scan entries can matter more than finding a clever victim."
+    },
+    {
+      "kind": "code",
+      "label": "What you implement",
+      "language": "Go",
+      "code": "func NewCache(capacityBytes uint64) contract.Cache"
+    },
+    {
+      "kind": "figure",
+      "label": "FIG 2",
+      "illustration": {
+        "id": "systems.timeline",
+        "props": {
+          "label": "Expiry uses the injected clock",
+          "windows": [
+            { "label": "Alive", "range": "[put, expiry)", "events": [{ "label": "Get = hit", "tone": "signal" }] },
+            { "label": "Expired", "range": "[expiry, …)", "events": [{ "label": "Get = miss", "tone": "warning" }], "finalized": true }
+          ],
+          "watermark": "NowTick ≥ ExpiryTick"
+        }
+      },
+      "caption": "Expiry is checked against virtual time. Reading does not extend life; replacing a value records a new expiry."
+    },
+    {
+      "kind": "constraints",
+      "items": [
+        "Charge `len(value) + contract.PerEntryMetadataBytes` for every resident entry.",
+        "Reject oversized inserts and replacements without evicting existing data.",
+        "`TTL = 0` never expires; `Get` never extends expiry.",
+        "Copy caller buffers and remove expired entries from both lookup and accounting."
+      ]
+    },
+    {
+      "kind": "steps",
+      "items": [
+        { "title": "Preserve the byte invariant", "md": "Handle replacement, expiry, and rejection before tuning policy." },
+        { "title": "Separate probation from protection", "md": "Give new entries a place to prove reuse before they can displace repeatedly used keys." },
+        { "title": "Measure the workload's cost", "md": "A miss on an expensive key matters more than a miss on a cheap one; compare byte hit rate with weighted backing cost." }
+      ]
+    },
+    {
+      "kind": "callout",
+      "tone": "note",
+      "title": "A useful first improvement",
+      "md": "A small probationary segment plus a protected segment is enough to make scan pollution visible in your design. You do not need a production cache algorithm before you can beat single-segment LRU."
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "blocks": [
+    {
+      "kind": "prose",
+      "md": "A job moves through a small lifecycle: available, leased, then acknowledged—or returned for another attempt. Capacity counts every accepted payload until `Ack`, including work currently held by a worker."
+    },
+    {
+      "kind": "figure",
+      "label": "FIG 1",
+      "illustration": {
+        "id": "systems.state",
+        "props": {
+          "label": "Queue job lifecycle",
+          "states": [
+            { "label": "Available", "detail": "FIFO among ready jobs", "tone": "accent" },
+            { "label": "Leased", "detail": "Unique token + deadline", "tone": "warning" },
+            { "label": "Acknowledged", "detail": "Payload bytes released", "tone": "signal" }
+          ],
+          "transitions": ["Lease", "Ack"]
+        }
+      },
+      "caption": "Nack or visibility expiry returns a leased job to the back of the available queue. It receives a fresh token when leased again."
+    },
+    {
+      "kind": "callout",
+      "tone": "warn",
+      "title": "Leased is still resident",
+      "md": "Do not free capacity when a worker leases a job. The queue owns those bytes until `Ack`; otherwise producers can overfill memory while consumers hold leases."
+    },
+    {
+      "kind": "code",
+      "label": "What you implement",
+      "language": "Go",
+      "code": "func OpenQueue(dir string, capacityBytes uint64) (contract.Queue, error)"
+    },
+    {
+      "kind": "example",
+      "input": "Enqueue A, B\nLease A (deadline 10)\nNack A\nLease ?",
+      "output": "B",
+      "explain": "Nack makes A available again at the back. FIFO is defined by availability, so B—already waiting—must be leased before A."
+    },
+    {
+      "kind": "constraints",
+      "items": [
+        "Copy payloads on enqueue and return a unique token for every lease attempt.",
+        "Blocked producers and consumers must wake on cancellation or close.",
+        "Expired leases return in ascending deadline order, with enqueue order breaking ties.",
+        "Ack and Nack reject stale or already-used tokens."
+      ]
+    },
+    {
+      "kind": "steps",
+      "items": [
+        { "title": "Write the state machine", "md": "Keep available order, leased records, resident-byte accounting, and token validity explicit." },
+        { "title": "Make waiting correct", "md": "Recheck the predicate after every wake; cancellation and close are outcomes, not side notes." },
+        { "title": "Then reduce contention", "md": "Replace broadcast wakeups and linear expiry scans only after race tests and lifecycle tests pass." }
+      ]
+    },
+    {
+      "kind": "callout",
+      "tone": "note",
+      "title": "Why virtual time matters",
+      "md": "Lease expiry is driven by the injected `nowTick`, never wall time. The same seed therefore produces the same redeliveries, waits, and score."
+    }
+  ]
+}

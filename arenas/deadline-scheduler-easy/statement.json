@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "blocks": [
+    {
+      "kind": "prose",
+      "md": "One worker, many waiting jobs, no preemption. Short jobs improve average flow time, but a scheduler that always favors them can leave a long job waiting forever. Balance **latency** with **eventual service**."
+    },
+    {
+      "kind": "figure",
+      "label": "FIG 1",
+      "illustration": {
+        "id": "systems.timeline",
+        "props": {
+          "label": "Non-preemptive worker schedule",
+          "windows": [
+            { "label": "Job A", "range": "[0, 6)", "events": [{ "label": "6 ticks", "tone": "warning" }], "finalized": true },
+            { "label": "Job B", "range": "[6, 8)", "events": [{ "label": "2 ticks", "tone": "signal" }], "finalized": true },
+            { "label": "Job C", "range": "[8, 11)", "events": [{ "label": "3 ticks", "tone": "accent" }] }
+          ],
+          "watermark": "virtual clock"
+        }
+      },
+      "caption": "Once A starts it owns the worker until tick 6. Better ordering happens only at idle boundaries."
+    },
+    {
+      "kind": "callout",
+      "tone": "insight",
+      "title": "Flow time includes waiting",
+      "md": "`flow = completion - arrival`. Running a short job first often lowers the mean, while aging or a maximum-wait rule prevents long jobs from starving."
+    },
+    {
+      "kind": "code",
+      "label": "What you implement",
+      "language": "Go",
+      "code": "func NewScheduler(cluster contract.Cluster) contract.Scheduler"
+    },
+    {
+      "kind": "example",
+      "input": "tick 0: A(work=8), B(work=2)\ntick 1: C(work=1)",
+      "output": "one valid policy: B → C → A",
+      "explain": "Shortest-work-first gives B and C fast completion, but the policy still records A's wait. As A ages, its priority must eventually outrank newly arriving short jobs."
+    },
+    {
+      "kind": "constraints",
+      "items": [
+        "Never run a job before arrival or while another job owns the worker.",
+        "Mark a returned job running immediately because same-tick callbacks may follow.",
+        "The harness can present several same-tick arrivals before the idle progress callback.",
+        "Every waiting job must eventually run; deliberate idling with queued work fails."
+      ]
+    },
+    {
+      "kind": "steps",
+      "items": [
+        { "title": "Start with FIFO", "md": "It establishes correct callback handling and guarantees progress." },
+        { "title": "Prefer short work", "md": "Use exact `EstimatedWork` to reduce mean flow time when the worker becomes idle." },
+        { "title": "Add aging", "md": "Increase priority with wait time or enforce a maximum wait so tail latency remains bounded." }
+      ]
+    },
+    {
+      "kind": "callout",
+      "tone": "note",
+      "title": "Read the metrics together",
+      "md": "Mean flow rewards short-job ordering; p95 flow and starvation penalty expose policies that sacrifice old jobs. Peak state and scheduler work show the bookkeeping cost."
+    }
+  ]
+}

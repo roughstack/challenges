@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "blocks": [
+    {
+      "kind": "prose",
+      "md": "Store immutable blobs as independently readable blocks. Each block is framed, optionally compressed, and checksummed so a small random read never requires decoding an unrelated blob."
+    },
+    {
+      "kind": "figure",
+      "label": "FIG 1",
+      "illustration": {
+        "id": "systems.flow",
+        "props": {
+          "label": "Blob ingest pipeline",
+          "nodes": [
+            { "label": "Blob", "detail": "Immutable bytes" },
+            { "label": "Chunk", "detail": "Split at fixed block size", "tone": "accent" },
+            { "label": "Encode", "detail": "Compress only when smaller", "tone": "warning" },
+            { "label": "Frame", "detail": "Lengths + CRC-32", "tone": "signal" },
+            { "label": "Device", "detail": "Append block bytes" }
+          ],
+          "edges": ["split", "per block", "protect", "write"]
+        }
+      },
+      "caption": "Compression and integrity are block-local. That locality is what makes exact random reads cheap and bounded."
+    },
+    {
+      "kind": "callout",
+      "tone": "warn",
+      "title": "Validate before allocating",
+      "md": "Lengths come from stored bytes that may be corrupt. Reject impossible raw or encoded lengths before allocating or decompressing; otherwise a tiny corrupt header can become a memory bomb."
+    },
+    {
+      "kind": "code",
+      "label": "What you implement",
+      "language": "Go",
+      "code": "func OpenStore(dir string, device contract.Device, memoryLimit uint64) (contract.Store, error)"
+    },
+    {
+      "kind": "example",
+      "input": "block size = 4\nblob = \"AAAABCDE\"\nReadAt(off=5, len=2)",
+      "output": "\"CD\"",
+      "explain": "The request overlaps only the second block. Find that block through the index, verify and decode it, then copy the requested slice. Do not read the first block."
+    },
+    {
+      "kind": "constraints",
+      "items": [
+        "A blob key is the pair `(id, version)`; duplicates return `contract.ErrDuplicate`.",
+        "Store compressed bytes only when they are strictly smaller than raw bytes.",
+        "Verify frame lengths and CRC-32 before returning data.",
+        "`Close` is terminal and idempotent; the easy tier's `Compact` is a no-op."
+      ]
+    },
+    {
+      "kind": "steps",
+      "items": [
+        { "title": "Design the frame", "md": "Keep enough metadata to locate, bound, decode, and verify one block." },
+        { "title": "Index physical ranges", "md": "Map each blob version and logical block number to its device offset and encoded length." },
+        { "title": "Read only overlap", "md": "Translate the requested logical range into the minimum set of blocks before touching the device." }
+      ]
+    },
+    {
+      "kind": "callout",
+      "tone": "note",
+      "title": "The trade-off",
+      "md": "Smaller blocks improve random-read locality but add more headers and index entries. Larger blocks reduce metadata while making each small read decode more data."
+    }
+  ]
+}

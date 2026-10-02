@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "blocks": [
+    {
+      "kind": "prose",
+      "md": "A cache is a small, fast copy of data that is expensive to fetch. Keep the **most recently used** entries inside a strict byte budget so repeated reads avoid the backing store."
+    },
+    {
+      "kind": "figure",
+      "label": "FIG 1",
+      "illustration": {
+        "id": "systems.flow",
+        "props": {
+          "label": "A cache read path",
+          "nodes": [
+            { "label": "Request", "detail": "Get key 7" },
+            { "label": "Cache", "detail": "Look up and refresh recency", "tone": "accent" },
+            { "label": "Backing store", "detail": "Read only on a miss", "tone": "warning" },
+            { "label": "Caller", "detail": "Receive an owned copy", "tone": "signal" }
+          ],
+          "edges": ["lookup", "miss", "fill + return"]
+        }
+      },
+      "caption": "A hit skips the backing store. A miss fetches once, admits the value if it fits, and returns a copy."
+    },
+    {
+      "kind": "callout",
+      "tone": "insight",
+      "title": "The invariant",
+      "md": "After every operation, `UsedBytes` is at most the configured capacity. Count both value bytes and `contract.PerEntryMetadataBytes`; capacity is about accounted memory, not entry count."
+    },
+    {
+      "kind": "code",
+      "label": "What you implement",
+      "language": "Go",
+      "code": "func NewCache(capacityBytes uint64) contract.Cache"
+    },
+    {
+      "kind": "example",
+      "input": "capacity = 2 entries\nPut(A), Put(B), Get(A), Put(C)",
+      "output": "recency: C → A\nevicted: B",
+      "explain": "`Get(A)` makes A newest. When C arrives, B is the oldest entry, so B leaves. Use a map for lookup plus an ordered recency list for constant-time movement."
+    },
+    {
+      "kind": "constraints",
+      "items": [
+        "`Get` and `Put` refresh recency; replacement counts as a fresh use.",
+        "Copy values on both input and output so caller mutation cannot change cached data.",
+        "An entry that cannot fit is not admitted; a zero-capacity cache stores nothing.",
+        "Evict the oldest entries until the new value fits, never after admitting it."
+      ]
+    },
+    {
+      "kind": "steps",
+      "items": [
+        { "title": "Make accounting exact", "md": "Centralize each entry's charged size and update it on insert, replacement, and eviction." },
+        { "title": "Separate lookup from order", "md": "Use one structure to find a key and another to move that entry to the newest position." },
+        { "title": "Optimize after correctness", "md": "A linear list can pass semantics; constant-time recency maintenance improves `metadata_work`." }
+      ]
+    },
+    {
+      "kind": "callout",
+      "tone": "note",
+      "title": "What the score is saying",
+      "md": "Fewer `backing_reads` means the policy retained useful data. Lower `metadata_work` means the same decisions required less bookkeeping. Correctness is always the gate."
+    }
+  ]
+}
