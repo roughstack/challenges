@@ -1,4 +1,4 @@
-# Cache Pressure — Medium
+# Cache Pressure
 
 A read-heavy service fronts an expensive backing store. Cache memory is strictly
 limited, values have variable byte sizes, some entries expire, and a single

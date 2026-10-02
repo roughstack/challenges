@@ -1,4 +1,4 @@
-# Durable Work Queue — Easy
+# Durable Work Queue
 
 Producers submit jobs and workers lease them. Build a bounded, in-memory,
 single-process queue for concurrent producers and consumers. Preserve FIFO

@@ -3,7 +3,7 @@ kind: Arena
 metadata:
   id: lossy-link-easy
   version: 1.0.0
-  title: Lossy Link — Easy
+  title: Lossy Link
   visibility: public
   mode: practice
   difficulty: easy

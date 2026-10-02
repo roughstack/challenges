@@ -3,7 +3,7 @@ kind: Arena
 metadata:
   id: chunk-store-easy
   version: 1.0.0
-  title: Chunk Store — Easy
+  title: Chunk Store
   visibility: public
   mode: practice
   difficulty: easy

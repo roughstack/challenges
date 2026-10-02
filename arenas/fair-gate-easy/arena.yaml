@@ -3,7 +3,7 @@ kind: Arena
 metadata:
   id: fair-gate-easy
   version: 1.0.0
-  title: Fair Gate — Easy
+  title: Fair Gate
   visibility: public
   mode: practice
   difficulty: easy

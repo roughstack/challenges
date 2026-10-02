@@ -3,7 +3,7 @@ kind: Arena
 metadata:
   id: stream-windows-easy
   version: 1.0.0
-  title: Stream Windows — Easy
+  title: Stream Windows
   visibility: public
   mode: practice
   difficulty: easy

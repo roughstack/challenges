@@ -1,4 +1,4 @@
-# Cache Pressure — Easy
+# Cache Pressure
 
 A read-heavy service fronts an expensive backing store. Implement a
 single-threaded, exact-capacity LRU cache that avoids unnecessary backing reads.

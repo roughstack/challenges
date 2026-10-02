@@ -1,4 +1,4 @@
-# Lossy Link — Easy
+# Lossy Link
 
 Transfer a byte stream across a deterministic simulated network that may lose,
 duplicate, delay, and corrupt packets. The contestant owns only the sender and

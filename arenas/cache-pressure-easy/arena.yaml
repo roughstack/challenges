@@ -3,7 +3,7 @@ kind: Arena
 metadata:
   id: cache-pressure-easy
   version: 1.0.0
-  title: Cache Pressure — Easy
+  title: Cache Pressure
   visibility: public
   mode: practice
   difficulty: easy

@@ -1,4 +1,4 @@
-# Deadline Scheduler — Easy
+# Deadline Scheduler
 
 A worker service receives jobs with arrival ticks and estimated work. Schedule
 non-preemptive jobs on one worker to reduce mean and tail flow time while

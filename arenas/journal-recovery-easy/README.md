@@ -1,4 +1,4 @@
-# Journal Recovery — Easy
+# Journal Recovery
 
 A tiny key-value engine writes through a player-owned journal. The harness
 injects torn writes, bit flips, and process death, then reopens the journal.

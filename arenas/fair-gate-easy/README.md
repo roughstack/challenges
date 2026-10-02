@@ -1,4 +1,4 @@
-# Fair Gate — Easy
+# Fair Gate
 
 An API gateway must protect a shared downstream service. Implement a
 single-tenant token bucket rate limiter with a configured rate and burst

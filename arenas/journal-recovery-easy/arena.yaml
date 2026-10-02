@@ -3,7 +3,7 @@ kind: Arena
 metadata:
   id: journal-recovery-easy
   version: 1.0.0
-  title: Journal Recovery — Easy
+  title: Journal Recovery
   visibility: public
   mode: practice
   difficulty: easy

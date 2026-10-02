@@ -3,7 +3,7 @@ kind: Arena
 metadata:
   id: lsm-compactor-easy
   version: 1.0.0
-  title: LSM Compactor — Easy
+  title: LSM Compactor
   visibility: public
   mode: practice
   difficulty: easy

@@ -1,4 +1,4 @@
-# Stream Windows — Easy
+# Stream Windows
 
 An observability pipeline receives timestamped service events. Implement a
 streaming operator that computes an exact per-key count and sum over fixed,

@@ -3,7 +3,7 @@ kind: Arena
 metadata:
   id: deadline-scheduler-easy
   version: 1.0.0
-  title: Deadline Scheduler — Easy
+  title: Deadline Scheduler
   visibility: public
   mode: practice
   difficulty: easy

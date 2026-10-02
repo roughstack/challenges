@@ -1,4 +1,4 @@
-# Chunk Store — Easy
+# Chunk Store
 
 A blob service stores versioned byte objects on a simulated block device.
 Implement a fixed-size chunked, per-block compressed store that serves exact

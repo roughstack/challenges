@@ -3,7 +3,7 @@ kind: Arena
 metadata:
   id: durable-queue-easy
   version: 1.0.0
-  title: Durable Work Queue — Easy
+  title: Durable Work Queue
   visibility: public
   mode: practice
   difficulty: easy

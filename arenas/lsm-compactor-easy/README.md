@@ -1,4 +1,4 @@
-# LSM Compactor — Easy
+# LSM Compactor
 
 A simulated LSM tree flushes immutable sorted runs into one unordered Level-0
 and one sorted Level-1. The contestant owns only the compaction policy; the
