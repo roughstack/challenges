@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "blocks": [
+    {
+      "kind": "prose",
+      "md": "Group an unbounded event stream into finite event-time windows. Events update live aggregates; a watermark proves that older windows are complete, so they can be emitted once and forgotten."
+    },
+    {
+      "kind": "figure",
+      "label": "FIG 1",
+      "illustration": {
+        "id": "systems.timeline",
+        "props": {
+          "label": "Fixed event-time windows",
+          "windows": [
+            {
+              "label": "Window 0",
+              "range": "[0, 10)",
+              "events": [
+                { "label": "api +3", "tone": "accent" },
+                { "label": "api +5", "tone": "accent" }
+              ],
+              "finalized": true
+            },
+            {
+              "label": "Window 1",
+              "range": "[10, 20)",
+              "events": [{ "label": "db +2", "tone": "warning" }]
+            }
+          ],
+          "watermark": "10"
+        }
+      },
+      "caption": "At watermark 10, Window 0 is final: emit api(count=2, sum=8) and evict it. Window 1 remains live."
+    },
+    {
+      "kind": "callout",
+      "tone": "insight",
+      "title": "Watermark means knowledge",
+      "md": "A watermark at tick `t` says no future event belongs before `t` in this tier. It is not an event and it does not belong to a window; it closes every window whose end is at most `t`."
+    },
+    {
+      "kind": "code",
+      "label": "What you implement",
+      "language": "Go",
+      "code": "func NewOperator(cfg contract.Config) contract.Operator"
+    },
+    {
+      "kind": "example",
+      "input": "WindowSize = 10\nEvent(tick=9, key=A, value=4)\nEvent(tick=10, key=A, value=7)\nWatermark(10)",
+      "output": "emit [0,10): A count=1 sum=4\nkeep [10,20): A count=1 sum=7",
+      "explain": "Windows are half-open. Tick 9 belongs to the first window; tick 10 starts the next. The watermark closes only the first."
+    },
+    {
+      "kind": "constraints",
+      "items": [
+        "Compute `start = floor(tick / WindowSize) * WindowSize` using safe integer arithmetic.",
+        "Emit each final key/window aggregate exactly once, in canonical record form.",
+        "Repeated or larger watermarks must not duplicate prior output.",
+        "Evict finalized state; `Close` emits every window still active."
+      ]
+    },
+    {
+      "kind": "steps",
+      "items": [
+        { "title": "Key state by window and key", "md": "Each event updates only one count and sum in one fixed window." },
+        { "title": "Finalize by end time", "md": "On a watermark, find windows with `end <= tick`, emit all their keys, then delete them." },
+        { "title": "Keep state proportional to the live horizon", "md": "Never retain the full input stream or already-finalized windows." }
+      ]
+    },
+    {
+      "kind": "callout",
+      "tone": "note",
+      "title": "Why the metrics fit the model",
+      "md": "Throughput rewards a small hot path; peak state checks timely eviction; output delay checks prompt finalization; allocation bytes reveal per-event churn."
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "blocks": [
+    {
+      "kind": "prose",
+      "md": "An LSM tree turns random writes into sequential runs. The price is paid later: reads may search several overlapping runs, while compaction rewrites data to reduce that search."
+    },
+    {
+      "kind": "figure",
+      "label": "FIG 1",
+      "illustration": {
+        "id": "systems.flow",
+        "props": {
+          "label": "Two-level LSM lifecycle",
+          "nodes": [
+            { "label": "Memtable", "detail": "Mutable recent entries", "tone": "signal" },
+            { "label": "Level 0", "detail": "New immutable, overlapping runs", "tone": "warning" },
+            { "label": "Compaction", "detail": "Merge newest value per key", "tone": "accent" },
+            { "label": "Level 1", "detail": "Sorted non-overlapping runs" }
+          ],
+          "edges": ["flush", "pick inputs", "rewrite"]
+        }
+      },
+      "caption": "Waiting creates more Level-0 overlap and read work. Compacting too eagerly rewrites data repeatedly and stalls the write path."
+    },
+    {
+      "kind": "callout",
+      "tone": "warn",
+      "title": "Plans must be overlap-closed",
+      "md": "Once you select a Level-0 key range, include every Level-1 run that overlaps it. Omitting one can leave two versions of a key in places the read rules cannot reconcile."
+    },
+    {
+      "kind": "code",
+      "label": "What you implement",
+      "language": "Go",
+      "code": "func NewPolicy(cfg contract.Config) contract.Policy"
+    },
+    {
+      "kind": "example",
+      "input": "L0 A: keys [10, 30]\nL0 B: keys [25, 50]\nL1 X: keys [0, 20]\nL1 Y: keys [40, 60]",
+      "output": "selecting A + B also requires X + Y",
+      "explain": "The chosen Level-0 union spans keys 10 through 50. Both Level-1 runs intersect that range, so both belong in the merge even though neither overlaps every selected Level-0 run."
+    },
+    {
+      "kind": "constraints",
+      "items": [
+        "Every plan targets Level 1 and includes at least one existing Level-0 run.",
+        "Include all and only the Level-1 runs overlapping the selected Level-0 range.",
+        "Keep the newest entry for each key; tombstones participate in recency.",
+        "Return no work below your trigger instead of emitting an empty or stale plan."
+      ]
+    },
+    {
+      "kind": "steps",
+      "items": [
+        { "title": "Start at the published trigger", "md": "Compacting all Level-0 runs is a correct baseline and establishes overlap handling." },
+        { "title": "Price the candidate", "md": "Estimate bytes rewritten and the read overlap removed by each valid input set." },
+        { "title": "Avoid tiny repeated merges", "md": "A cheap compaction now may rewrite the same key range again after the next flush." }
+      ]
+    },
+    {
+      "kind": "callout",
+      "tone": "note",
+      "title": "The four-way trade-off",
+      "md": "Read amplification, bytes rewritten, compaction stalls, and peak disk space pull in different directions. A useful policy makes that trade explicit instead of optimizing a single counter."
+    }
+  ]
+}

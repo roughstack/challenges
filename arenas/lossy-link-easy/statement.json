@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "blocks": [
+    {
+      "kind": "prose",
+      "md": "Build reliability above an unreliable link. With only one unacknowledged packet at a time, the protocol needs a sequence bit, a checksum, an acknowledgement, and a retransmission timer."
+    },
+    {
+      "kind": "figure",
+      "label": "FIG 1",
+      "illustration": {
+        "id": "systems.state",
+        "props": {
+          "label": "Stop-and-wait sender",
+          "states": [
+            { "label": "Ready", "detail": "Accept the next app chunk", "tone": "signal" },
+            { "label": "Waiting", "detail": "One packet is in flight", "tone": "warning" },
+            { "label": "Advance", "detail": "Matching ACK flips sequence", "tone": "accent" }
+          ],
+          "transitions": ["send DATA", "receive ACK"]
+        }
+      },
+      "caption": "Loss or corruption leaves the sender waiting. When its timer fires, it retransmits the same packet; the receiver discards duplicates but repeats the ACK."
+    },
+    {
+      "kind": "callout",
+      "tone": "insight",
+      "title": "Duplicates are normal",
+      "md": "An ACK can be lost after the receiver already delivered the data. The retry must be acknowledged again but never delivered twice. Sequence state makes that distinction."
+    },
+    {
+      "kind": "code",
+      "label": "What you implement",
+      "language": "Go",
+      "code": "func NewSender(cfg contract.Config) contract.Endpoint\nfunc NewReceiver(cfg contract.Config) contract.Endpoint"
+    },
+    {
+      "kind": "example",
+      "input": "send DATA(seq=0, \"abc\")\nreceiver delivers and sends ACK(0)\nACK(0) is lost\ntimer fires",
+      "output": "resend DATA(0)\nreceiver delivers nothing\nreceiver sends ACK(0) again",
+      "explain": "The repeated sequence tells the receiver this payload was already committed. Reliability requires idempotent handling on both sides, not merely retrying."
+    },
+    {
+      "kind": "constraints",
+      "items": [
+        "Copy application and packet payloads; never retain caller-owned slices.",
+        "Verify packet size and checksum before changing protocol state.",
+        "Keep at most one unacknowledged data packet and one timer in this tier.",
+        "Deliver every source byte exactly once and in order before reporting Done."
+      ]
+    },
+    {
+      "kind": "steps",
+      "items": [
+        { "title": "Make the clean path explicit", "md": "Chunk data, attach sequence and checksum, then wait for the matching ACK." },
+        { "title": "Treat every fault as an event", "md": "Loss means no callback, corruption means discard, duplication means repeat the previous response." },
+        { "title": "Finish both roles", "md": "EOF still needs protocol confirmation so sender and receiver agree the byte stream is complete." }
+      ]
+    },
+    {
+      "kind": "callout",
+      "tone": "note",
+      "title": "Read the score as overhead",
+      "md": "Completion ticks measure waiting; transmitted bytes, packet count, and retransmissions measure how much extra work reliability required; state bytes price the protocol memory."
+    }
+  ]
+}

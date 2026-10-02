@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "blocks": [
+    {
+      "kind": "prose",
+      "md": "A journal turns an unreliable sequence of device writes into a recoverable history. Records need boundaries, ordering, and integrity so recovery can distinguish a valid prefix from a torn tail or real corruption."
+    },
+    {
+      "kind": "figure",
+      "label": "FIG 1",
+      "illustration": {
+        "id": "systems.flow",
+        "props": {
+          "label": "Journal append and durability",
+          "nodes": [
+            { "label": "Record", "detail": "Copy caller payload" },
+            { "label": "Frame", "detail": "Magic · length · LSN · CRC", "tone": "accent" },
+            { "label": "Write", "detail": "Append bytes to Device", "tone": "warning" },
+            { "label": "Sync", "detail": "Advance durability boundary", "tone": "signal" }
+          ],
+          "edges": ["encode", "append", "make durable"]
+        }
+      },
+      "caption": "Append gives a record an LSN, but only Sync makes the requested prefix durable. Recovery trusts structure and checksum, not intent."
+    },
+    {
+      "kind": "callout",
+      "tone": "insight",
+      "title": "Recover the longest valid prefix",
+      "md": "Scan frames in LSN order and apply only records proven complete and valid. A partial final frame is a torn tail; a complete frame with a bad checksum or sequence gap is corruption."
+    },
+    {
+      "kind": "code",
+      "label": "What you implement",
+      "language": "Go",
+      "code": "func OpenJournal(dir string, device contract.Device) (contract.Journal, error)"
+    },
+    {
+      "kind": "example",
+      "input": "frame 1: valid\nframe 2: valid\nframe 3: header + half payload",
+      "output": "apply records 1, 2\nstatus = StatusTornTail",
+      "explain": "The third frame declares bytes that are not present, so it was interrupted at the end. Recovery keeps the proven prefix and reports the tail condition without inventing record 3."
+    },
+    {
+      "kind": "constraints",
+      "items": [
+        "LSNs start at one, increase by one, and unknown Sync targets return `ErrUnknownLSN`.",
+        "CRC-32 covers every frame byte before the checksum field.",
+        "Reject oversized lengths before allocation and stop at sequence gaps or checksum failures.",
+        "`Close` is terminal and idempotent; propagate errors returned by the recovery callback."
+      ]
+    },
+    {
+      "kind": "steps",
+      "items": [
+        { "title": "Encode one exact frame", "md": "Write fixed-width fields in the documented byte order and compute CRC over the same bytes recovery will verify." },
+        { "title": "Separate appended from durable", "md": "Track assigned LSNs independently from the Device's flushed boundary." },
+        { "title": "Classify the stopping point", "md": "Clean end, torn tail, tail garbage, and corruption have deliberately different outcomes." }
+      ]
+    },
+    {
+      "kind": "callout",
+      "tone": "note",
+      "title": "Where performance comes from",
+      "md": "Correct framing comes first. Then batch durability behind `Sync` and recover incrementally so append throughput rises without reading or allocating the whole journal."
+    }
+  ]
+}
