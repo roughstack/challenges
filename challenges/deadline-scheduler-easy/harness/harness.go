@@ -11,8 +11,8 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/bytearena/arenas/arenas/deadline-scheduler-easy/contract"
-	"github.com/bytearena/arenas/arenas/deadline-scheduler-easy/workload"
+	"github.com/roughstack/challenges/challenges/deadline-scheduler-easy/contract"
+	"github.com/roughstack/challenges/challenges/deadline-scheduler-easy/workload"
 )
 
 const (

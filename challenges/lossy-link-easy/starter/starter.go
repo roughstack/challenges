@@ -5,7 +5,7 @@
 // pipelining, no adaptive timeout, and a single fixed timer.
 package starter
 
-import "github.com/bytearena/arenas/arenas/lossy-link-easy/contract"
+import "github.com/roughstack/challenges/challenges/lossy-link-easy/contract"
 
 // Factory constructs the public sender/receiver pair from the contestant
 // surface. It is referenced by the harness and smoke command only; the

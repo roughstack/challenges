@@ -3,7 +3,7 @@ package starter
 import (
 	"testing"
 
-	"github.com/bytearena/arenas/arenas/fair-gate-easy/contract"
+	"github.com/roughstack/challenges/challenges/fair-gate-easy/contract"
 )
 
 func decide(limiter contract.Limiter, tick uint64, cost uint32) contract.Decision {

@@ -3,7 +3,7 @@ package starter
 import (
 	"testing"
 
-	"github.com/bytearena/arenas/arenas/stream-windows-easy/contract"
+	"github.com/roughstack/challenges/challenges/stream-windows-easy/contract"
 )
 
 func testConfig(windowSize uint64, emitEmpty bool) contract.Config {

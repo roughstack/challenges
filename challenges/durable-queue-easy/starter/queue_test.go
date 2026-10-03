@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/bytearena/arenas/arenas/durable-queue-easy/contract"
+	"github.com/roughstack/challenges/challenges/durable-queue-easy/contract"
 )
 
 func TestFIFOOrder(t *testing.T) {

@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/bytearena/arenas/arenas/cache-pressure-easy/harness"
-	"github.com/bytearena/arenas/arenas/cache-pressure-easy/starter"
+	"github.com/roughstack/challenges/challenges/cache-pressure-easy/harness"
+	"github.com/roughstack/challenges/challenges/cache-pressure-easy/starter"
 )
 
 func main() {

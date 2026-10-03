@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/bytearena/arenas/arenas/cache-pressure-easy/starter"
+	"github.com/roughstack/challenges/challenges/cache-pressure-easy/starter"
 )
 
 func TestEvaluateIsDeterministicAndWithinCapacity(t *testing.T) {

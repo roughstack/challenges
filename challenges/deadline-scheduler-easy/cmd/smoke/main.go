@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/bytearena/arenas/arenas/deadline-scheduler-easy/harness"
-	"github.com/bytearena/arenas/arenas/deadline-scheduler-easy/starter"
+	"github.com/roughstack/challenges/challenges/deadline-scheduler-easy/harness"
+	"github.com/roughstack/challenges/challenges/deadline-scheduler-easy/starter"
 )
 
 func main() {

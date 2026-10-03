@@ -8,8 +8,8 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/bytearena/arenas/arenas/lossy-link-easy/contract"
-	"github.com/bytearena/arenas/arenas/lossy-link-easy/workload"
+	"github.com/roughstack/challenges/challenges/lossy-link-easy/contract"
+	"github.com/roughstack/challenges/challenges/lossy-link-easy/workload"
 )
 
 const (

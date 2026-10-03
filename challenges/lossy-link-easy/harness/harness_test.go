@@ -6,9 +6,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/bytearena/arenas/arenas/lossy-link-easy/contract"
-	"github.com/bytearena/arenas/arenas/lossy-link-easy/starter"
-	"github.com/bytearena/arenas/arenas/lossy-link-easy/workload"
+	"github.com/roughstack/challenges/challenges/lossy-link-easy/contract"
+	"github.com/roughstack/challenges/challenges/lossy-link-easy/starter"
+	"github.com/roughstack/challenges/challenges/lossy-link-easy/workload"
 )
 
 func run(seed uint64, fault FaultProfile, streamBytes uint64) Result {

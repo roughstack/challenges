@@ -10,8 +10,8 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/bytearena/arenas/arenas/stream-windows-easy/contract"
-	"github.com/bytearena/arenas/arenas/stream-windows-easy/workload"
+	"github.com/roughstack/challenges/challenges/stream-windows-easy/contract"
+	"github.com/roughstack/challenges/challenges/stream-windows-easy/workload"
 )
 
 const (

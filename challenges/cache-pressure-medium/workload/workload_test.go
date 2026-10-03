@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/bytearena/arenas/arenas/cache-pressure-medium/contract"
+	"github.com/roughstack/challenges/challenges/cache-pressure-medium/contract"
 )
 
 func TestGenerateIsDeterministicAndCoversPhases(t *testing.T) {

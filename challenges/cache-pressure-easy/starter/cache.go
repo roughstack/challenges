@@ -1,7 +1,7 @@
 // Package starter contains a deliberately simple, correct cache implementation.
 package starter
 
-import "github.com/bytearena/arenas/arenas/cache-pressure-easy/contract"
+import "github.com/roughstack/challenges/challenges/cache-pressure-easy/contract"
 
 type cache struct {
 	capacity uint64

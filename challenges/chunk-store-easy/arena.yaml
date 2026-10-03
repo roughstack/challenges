@@ -13,10 +13,10 @@ submission:
   entrypoint: starter/starter.go
   interface: bytearena.chunkstore.Store/v1
 build:
-  command: ["go", "test", "./arenas/chunk-store-easy/..."]
+  command: ["go", "test", "./challenges/chunk-store-easy/..."]
   timeoutSeconds: 60
 run:
-  command: ["go", "run", "./arenas/chunk-store-easy/cmd/smoke", "--seed", "12345"]
+  command: ["go", "run", "./challenges/chunk-store-easy/cmd/smoke", "--seed", "12345"]
   protocol: bytearena.result/v1
   timeoutSeconds: 120
 resources:

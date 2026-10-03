@@ -7,8 +7,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/bytearena/arenas/arenas/chunk-store-easy/contract"
-	"github.com/bytearena/arenas/arenas/chunk-store-easy/starter"
+	"github.com/roughstack/challenges/challenges/chunk-store-easy/contract"
+	"github.com/roughstack/challenges/challenges/chunk-store-easy/starter"
 )
 
 func TestEvaluateIsDeterministicAndPasses(t *testing.T) {

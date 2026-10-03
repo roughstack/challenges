@@ -7,7 +7,7 @@ import (
 	"io"
 	"testing"
 
-	"github.com/bytearena/arenas/arenas/chunk-store-easy/contract"
+	"github.com/roughstack/challenges/challenges/chunk-store-easy/contract"
 )
 
 // byteDevice is a minimal deterministic Device for public starter tests. The

@@ -6,7 +6,7 @@ package starter
 import (
 	"sort"
 
-	"github.com/bytearena/arenas/arenas/lsm-compactor-easy/contract"
+	"github.com/roughstack/challenges/challenges/lsm-compactor-easy/contract"
 )
 
 // Factory constructs the public policy. It is referenced by the harness and

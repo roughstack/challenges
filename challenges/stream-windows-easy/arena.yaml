@@ -13,10 +13,10 @@ submission:
   entrypoint: starter/starter.go
   interface: bytearena.streamwindows.Operator/v1
 build:
-  command: ["go", "test", "./arenas/stream-windows-easy/..."]
+  command: ["go", "test", "./challenges/stream-windows-easy/..."]
   timeoutSeconds: 60
 run:
-  command: ["go", "run", "./arenas/stream-windows-easy/cmd/smoke", "--seed", "12345"]
+  command: ["go", "run", "./challenges/stream-windows-easy/cmd/smoke", "--seed", "12345"]
   protocol: bytearena.result/v1
   timeoutSeconds: 120
 resources:

@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/bytearena/arenas/arenas/lossy-link-easy/harness"
-	"github.com/bytearena/arenas/arenas/lossy-link-easy/starter"
+	"github.com/roughstack/challenges/challenges/lossy-link-easy/harness"
+	"github.com/roughstack/challenges/challenges/lossy-link-easy/starter"
 )
 
 func main() {

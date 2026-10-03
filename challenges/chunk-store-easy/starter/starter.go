@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/bytearena/arenas/arenas/chunk-store-easy/contract"
+	"github.com/roughstack/challenges/challenges/chunk-store-easy/contract"
 )
 
 // Accounting constants describe the deterministic in-memory index model used by

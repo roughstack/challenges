@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/bytearena/arenas/arenas/lossy-link-easy/contract"
+	"github.com/roughstack/challenges/challenges/lossy-link-easy/contract"
 )
 
 func testConfig(streamBytes uint64) contract.Config {

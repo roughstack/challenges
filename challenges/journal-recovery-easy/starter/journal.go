@@ -12,7 +12,7 @@ package starter
 import (
 	"errors"
 
-	"github.com/bytearena/arenas/arenas/journal-recovery-easy/contract"
+	"github.com/roughstack/challenges/challenges/journal-recovery-easy/contract"
 )
 
 type journal struct {

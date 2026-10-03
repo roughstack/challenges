@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/bytearena/arenas/arenas/fair-gate-easy/contract"
-	"github.com/bytearena/arenas/arenas/fair-gate-easy/starter"
+	"github.com/roughstack/challenges/challenges/fair-gate-easy/contract"
+	"github.com/roughstack/challenges/challenges/fair-gate-easy/starter"
 )
 
 func req(tick uint64, cost uint32) contract.Request {

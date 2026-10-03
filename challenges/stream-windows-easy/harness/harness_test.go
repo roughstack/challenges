@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/bytearena/arenas/arenas/stream-windows-easy/contract"
-	"github.com/bytearena/arenas/arenas/stream-windows-easy/starter"
-	"github.com/bytearena/arenas/arenas/stream-windows-easy/workload"
+	"github.com/roughstack/challenges/challenges/stream-windows-easy/contract"
+	"github.com/roughstack/challenges/challenges/stream-windows-easy/starter"
+	"github.com/roughstack/challenges/challenges/stream-windows-easy/workload"
 )
 
 func ev(tick, key uint64, value int64) workload.Step {

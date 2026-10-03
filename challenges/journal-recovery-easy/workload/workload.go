@@ -2,7 +2,7 @@
 // journal-recovery-easy arena.
 package workload
 
-import "github.com/bytearena/arenas/arenas/journal-recovery-easy/contract"
+import "github.com/roughstack/challenges/challenges/journal-recovery-easy/contract"
 
 // Config controls deterministic public record generation without exposing
 // ranked workload distributions.

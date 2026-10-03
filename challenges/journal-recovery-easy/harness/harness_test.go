@@ -6,8 +6,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/bytearena/arenas/arenas/journal-recovery-easy/contract"
-	"github.com/bytearena/arenas/arenas/journal-recovery-easy/starter"
+	"github.com/roughstack/challenges/challenges/journal-recovery-easy/contract"
+	"github.com/roughstack/challenges/challenges/journal-recovery-easy/starter"
 )
 
 func TestEvaluateIsDeterministicAndRecoversTornTail(t *testing.T) {

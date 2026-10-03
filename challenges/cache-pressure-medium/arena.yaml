@@ -13,10 +13,10 @@ submission:
   entrypoint: starter/cache.go
   interface: bytearena.cache.Cache/v1
 build:
-  command: ["go", "test", "./arenas/cache-pressure-medium/..."]
+  command: ["go", "test", "./challenges/cache-pressure-medium/..."]
   timeoutSeconds: 60
 run:
-  command: ["go", "run", "./arenas/cache-pressure-medium/cmd/smoke", "--seed", "12345"]
+  command: ["go", "run", "./challenges/cache-pressure-medium/cmd/smoke", "--seed", "12345"]
   protocol: bytearena.result/v1
   timeoutSeconds: 120
 resources:

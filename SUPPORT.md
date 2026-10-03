@@ -1,6 +1,6 @@
 # Support
 
-Use the issue templates for reproducible arena defects and arena proposals.
+Use the issue templates for reproducible challenge defects and challenge proposals.
 Include the variant ID and version, operating system, Go version, exact commit,
 seed, command, and bounded output needed to reproduce the problem.
 

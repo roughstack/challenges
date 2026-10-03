@@ -13,10 +13,10 @@ submission:
   entrypoint: starter/starter.go
   interface: bytearena.fairgate.Limiter/v1
 build:
-  command: ["go", "test", "./arenas/fair-gate-easy/..."]
+  command: ["go", "test", "./challenges/fair-gate-easy/..."]
   timeoutSeconds: 60
 run:
-  command: ["go", "run", "./arenas/fair-gate-easy/cmd/smoke", "--seed", "12345"]
+  command: ["go", "run", "./challenges/fair-gate-easy/cmd/smoke", "--seed", "12345"]
   protocol: bytearena.result/v1
   timeoutSeconds: 120
 resources:

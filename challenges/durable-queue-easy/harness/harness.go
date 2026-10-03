@@ -12,8 +12,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/bytearena/arenas/arenas/durable-queue-easy/contract"
-	"github.com/bytearena/arenas/arenas/durable-queue-easy/workload"
+	"github.com/roughstack/challenges/challenges/durable-queue-easy/contract"
+	"github.com/roughstack/challenges/challenges/durable-queue-easy/workload"
 )
 
 const (

@@ -1,7 +1,7 @@
-name: Arena proposal
-description: Propose a public systems-engineering arena.
+name: Challenge proposal
+description: Propose a public systems-engineering challenge.
 title: "proposal: "
-labels: [arena-proposal]
+labels: [challenge-proposal]
 body:
   - type: textarea
     id: system

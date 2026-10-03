@@ -13,10 +13,10 @@ submission:
   entrypoint: starter/journal.go
   interface: bytearena.journal.Journal/v1
 build:
-  command: ["go", "test", "./arenas/journal-recovery-easy/..."]
+  command: ["go", "test", "./challenges/journal-recovery-easy/..."]
   timeoutSeconds: 60
 run:
-  command: ["go", "run", "./arenas/journal-recovery-easy/cmd/smoke", "--seed", "12345"]
+  command: ["go", "run", "./challenges/journal-recovery-easy/cmd/smoke", "--seed", "12345"]
   protocol: bytearena.result/v1
   timeoutSeconds: 120
 resources:

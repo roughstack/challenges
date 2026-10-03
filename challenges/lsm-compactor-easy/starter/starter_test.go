@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/bytearena/arenas/arenas/lsm-compactor-easy/contract"
+	"github.com/roughstack/challenges/challenges/lsm-compactor-easy/contract"
 )
 
 func runMeta(id, level, entries, minKey, maxKey uint64) contract.RunMeta {

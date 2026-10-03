@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/bytearena/arenas/arenas/lsm-compactor-easy/harness"
-	"github.com/bytearena/arenas/arenas/lsm-compactor-easy/starter"
+	"github.com/roughstack/challenges/challenges/lsm-compactor-easy/harness"
+	"github.com/roughstack/challenges/challenges/lsm-compactor-easy/starter"
 )
 
 func main() {

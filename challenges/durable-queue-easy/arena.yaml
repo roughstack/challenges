@@ -13,10 +13,10 @@ submission:
   entrypoint: starter/queue.go
   interface: bytearena.durablequeue.Queue/v1
 build:
-  command: ["go", "test", "./arenas/durable-queue-easy/..."]
+  command: ["go", "test", "./challenges/durable-queue-easy/..."]
   timeoutSeconds: 60
 run:
-  command: ["go", "run", "./arenas/durable-queue-easy/cmd/smoke", "--seed", "12345"]
+  command: ["go", "run", "./challenges/durable-queue-easy/cmd/smoke", "--seed", "12345"]
   protocol: bytearena.result/v1
   timeoutSeconds: 120
 resources:

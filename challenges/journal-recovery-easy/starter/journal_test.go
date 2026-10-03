@@ -6,7 +6,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/bytearena/arenas/arenas/journal-recovery-easy/contract"
+	"github.com/roughstack/challenges/challenges/journal-recovery-easy/contract"
 )
 
 // byteDevice is a minimal deterministic Device for the public starter tests.

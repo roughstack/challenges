@@ -13,10 +13,10 @@ submission:
   entrypoint: starter/starter.go
   interface: bytearena.lsmcompactor.Policy/v1
 build:
-  command: ["go", "test", "./arenas/lsm-compactor-easy/..."]
+  command: ["go", "test", "./challenges/lsm-compactor-easy/..."]
   timeoutSeconds: 60
 run:
-  command: ["go", "run", "./arenas/lsm-compactor-easy/cmd/smoke", "--seed", "12345"]
+  command: ["go", "run", "./challenges/lsm-compactor-easy/cmd/smoke", "--seed", "12345"]
   protocol: bytearena.result/v1
   timeoutSeconds: 120
 resources:

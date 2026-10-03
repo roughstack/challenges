@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/bytearena/arenas/arenas/stream-windows-easy/harness"
-	"github.com/bytearena/arenas/arenas/stream-windows-easy/starter"
+	"github.com/roughstack/challenges/challenges/stream-windows-easy/harness"
+	"github.com/roughstack/challenges/challenges/stream-windows-easy/starter"
 )
 
 func main() {

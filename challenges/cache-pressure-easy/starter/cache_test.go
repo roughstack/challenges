@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/bytearena/arenas/arenas/cache-pressure-easy/contract"
+	"github.com/roughstack/challenges/challenges/cache-pressure-easy/contract"
 )
 
 func TestLRUOrder(t *testing.T) {

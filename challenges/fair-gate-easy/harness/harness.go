@@ -9,8 +9,8 @@ import (
 	"runtime/debug"
 	"strconv"
 
-	"github.com/bytearena/arenas/arenas/fair-gate-easy/contract"
-	"github.com/bytearena/arenas/arenas/fair-gate-easy/workload"
+	"github.com/roughstack/challenges/challenges/fair-gate-easy/contract"
+	"github.com/roughstack/challenges/challenges/fair-gate-easy/workload"
 )
 
 const (

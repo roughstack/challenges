@@ -2,7 +2,7 @@
 // cache-pressure-medium arena.
 package workload
 
-import "github.com/bytearena/arenas/arenas/cache-pressure-medium/contract"
+import "github.com/roughstack/challenges/challenges/cache-pressure-medium/contract"
 
 // Kind identifies an operation owned by the public harness.
 type Kind uint8

@@ -1,14 +1,14 @@
-# Contributing public arenas
+# Contributing public challenges
 
-This repository contains only public arena material. Official workloads,
+This repository contains only public challenge material. Official workloads,
 ranked seeds, exploit suites, calibration data, and private reference
 implementations must never be proposed or discussed in a public pull request.
 
 ## Contribution flow
 
-1. Use the arena-proposal issue template before implementing a new family or
+1. Use the challenge-proposal issue template before implementing a new family or
    changing a frozen contestant contract.
-2. Implement one arena variant per pull request.
+2. Implement one challenge variant per pull request.
 3. Keep the contestant-owned API narrow and keep workload generation, invariant
    checks, accounting, and result construction in trusted harness code.
 4. Make every workload and logical metric deterministic from an explicit
@@ -20,7 +20,7 @@ implementations must never be proposed or discussed in a public pull request.
 
 ```bash
 sh scripts/check-repository-hygiene.sh
-gofmt -w arenas/<variant-id>
+gofmt -w challenges/<variant-id>
 go test ./...
 go vet ./...
 go test -race ./...

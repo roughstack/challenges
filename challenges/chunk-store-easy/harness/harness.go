@@ -12,8 +12,8 @@ import (
 	"runtime/debug"
 	"strconv"
 
-	"github.com/bytearena/arenas/arenas/chunk-store-easy/contract"
-	"github.com/bytearena/arenas/arenas/chunk-store-easy/workload"
+	"github.com/roughstack/challenges/challenges/chunk-store-easy/contract"
+	"github.com/roughstack/challenges/challenges/chunk-store-easy/workload"
 )
 
 const (

@@ -5,8 +5,8 @@ import (
 	"bytes"
 	"strconv"
 
-	"github.com/bytearena/arenas/arenas/cache-pressure-medium/contract"
-	"github.com/bytearena/arenas/arenas/cache-pressure-medium/workload"
+	"github.com/roughstack/challenges/challenges/cache-pressure-medium/contract"
+	"github.com/roughstack/challenges/challenges/cache-pressure-medium/workload"
 )
 
 const (

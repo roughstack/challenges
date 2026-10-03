@@ -11,8 +11,8 @@ import (
 	"hash/crc32"
 	"strconv"
 
-	"github.com/bytearena/arenas/arenas/journal-recovery-easy/contract"
-	"github.com/bytearena/arenas/arenas/journal-recovery-easy/workload"
+	"github.com/roughstack/challenges/challenges/journal-recovery-easy/contract"
+	"github.com/roughstack/challenges/challenges/journal-recovery-easy/workload"
 )
 
 const (

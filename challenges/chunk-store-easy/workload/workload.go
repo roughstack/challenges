@@ -6,7 +6,7 @@ package workload
 import (
 	"bytes"
 
-	"github.com/bytearena/arenas/arenas/chunk-store-easy/contract"
+	"github.com/roughstack/challenges/challenges/chunk-store-easy/contract"
 )
 
 // Kind identifies the shape of a generated blob.

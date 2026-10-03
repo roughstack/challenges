@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/bytearena/arenas/arenas/chunk-store-easy/harness"
-	"github.com/bytearena/arenas/arenas/chunk-store-easy/starter"
+	"github.com/roughstack/challenges/challenges/chunk-store-easy/harness"
+	"github.com/roughstack/challenges/challenges/chunk-store-easy/starter"
 )
 
 func main() {

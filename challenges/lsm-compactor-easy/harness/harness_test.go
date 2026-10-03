@@ -6,8 +6,8 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/bytearena/arenas/arenas/lsm-compactor-easy/contract"
-	"github.com/bytearena/arenas/arenas/lsm-compactor-easy/starter"
+	"github.com/roughstack/challenges/challenges/lsm-compactor-easy/contract"
+	"github.com/roughstack/challenges/challenges/lsm-compactor-easy/starter"
 )
 
 func runFactory(seed uint64, config PublicConfig, factory contract.Factory) (*simulator, Result) {

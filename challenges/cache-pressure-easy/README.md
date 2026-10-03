@@ -42,7 +42,7 @@ From the repository root:
 
 ```sh
 go test ./...
-go run ./arenas/cache-pressure-easy/cmd/smoke --seed 12345
+go run ./challenges/cache-pressure-easy/cmd/smoke --seed 12345
 ```
 
 The smoke command writes exactly one `bytearena.result/v1` JSON object to stdout.

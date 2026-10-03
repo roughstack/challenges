@@ -57,7 +57,7 @@ From the repository root:
 
 ```sh
 go test ./...
-go run ./arenas/durable-queue-easy/cmd/smoke --seed 1844674407370955161
+go run ./challenges/durable-queue-easy/cmd/smoke --seed 1844674407370955161
 ```
 
 The smoke command writes exactly one `bytearena.result/v1` JSON object to stdout.

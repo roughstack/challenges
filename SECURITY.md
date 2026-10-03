@@ -1,7 +1,7 @@
 # Security policy
 
 Report vulnerabilities through GitHub's **Report a vulnerability** function.
-Do not publish exploit details in issues, discussions, pull requests, arena
+Do not publish exploit details in issues, discussions, pull requests, challenge
 fixtures, or smoke output.
 
 Relevant reports include harness escapes, invariant bypasses, score forgery,
@@ -12,6 +12,6 @@ Maintainers aim to acknowledge reports within three business days and provide
 an initial assessment within seven business days. Security fixes target the
 current `main` branch until versioned releases are published.
 
-Public arena harnesses are defense-in-depth and are not, by themselves, the
+Public challenge harnesses are defense-in-depth and are not, by themselves, the
 host sandbox. Do not run untrusted submissions outside the platform's isolated
 execution environment.

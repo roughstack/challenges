@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/bytearena/arenas/arenas/fair-gate-easy/harness"
-	"github.com/bytearena/arenas/arenas/fair-gate-easy/starter"
+	"github.com/roughstack/challenges/challenges/fair-gate-easy/harness"
+	"github.com/roughstack/challenges/challenges/fair-gate-easy/starter"
 )
 
 func main() {

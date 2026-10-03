@@ -13,7 +13,7 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/bytearena/arenas/arenas/durable-queue-easy/contract"
+	"github.com/roughstack/challenges/challenges/durable-queue-easy/contract"
 )
 
 type entry struct {

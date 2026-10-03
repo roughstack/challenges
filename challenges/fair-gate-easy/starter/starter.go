@@ -9,7 +9,7 @@
 // adding precomputed tables or branch-free fast paths.
 package starter
 
-import "github.com/bytearena/arenas/arenas/fair-gate-easy/contract"
+import "github.com/roughstack/challenges/challenges/fair-gate-easy/contract"
 
 // NewLimiter returns a correct, deliberately simple token bucket. The bucket
 // starts full when the configured capacity is positive and starts empty when

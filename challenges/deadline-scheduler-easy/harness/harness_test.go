@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/bytearena/arenas/arenas/deadline-scheduler-easy/contract"
-	"github.com/bytearena/arenas/arenas/deadline-scheduler-easy/starter"
+	"github.com/roughstack/challenges/challenges/deadline-scheduler-easy/contract"
+	"github.com/roughstack/challenges/challenges/deadline-scheduler-easy/starter"
 )
 
 func TestEvaluateIsDeterministicAndConverges(t *testing.T) {

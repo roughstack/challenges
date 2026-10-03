@@ -8,7 +8,7 @@
 // delivers arrivals in that order.
 package starter
 
-import "github.com/bytearena/arenas/arenas/deadline-scheduler-easy/contract"
+import "github.com/roughstack/challenges/challenges/deadline-scheduler-easy/contract"
 
 type scheduler struct {
 	waiting   []contract.Job

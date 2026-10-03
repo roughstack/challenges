@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/bytearena/arenas/arenas/journal-recovery-easy/harness"
-	"github.com/bytearena/arenas/arenas/journal-recovery-easy/starter"
+	"github.com/roughstack/challenges/challenges/journal-recovery-easy/harness"
+	"github.com/roughstack/challenges/challenges/journal-recovery-easy/starter"
 )
 
 func main() {

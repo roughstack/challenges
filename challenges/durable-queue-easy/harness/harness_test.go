@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/bytearena/arenas/arenas/durable-queue-easy/contract"
-	"github.com/bytearena/arenas/arenas/durable-queue-easy/starter"
+	"github.com/roughstack/challenges/challenges/durable-queue-easy/contract"
+	"github.com/roughstack/challenges/challenges/durable-queue-easy/starter"
 )
 
 func TestEvaluateIsDeterministicAndConverges(t *testing.T) {

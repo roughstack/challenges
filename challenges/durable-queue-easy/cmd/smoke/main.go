@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/bytearena/arenas/arenas/durable-queue-easy/harness"
-	"github.com/bytearena/arenas/arenas/durable-queue-easy/starter"
+	"github.com/roughstack/challenges/challenges/durable-queue-easy/harness"
+	"github.com/roughstack/challenges/challenges/durable-queue-easy/starter"
 )
 
 func main() {

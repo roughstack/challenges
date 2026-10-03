@@ -6,7 +6,7 @@
 // and the single segment offers no protection against scan pollution.
 package starter
 
-import "github.com/bytearena/arenas/arenas/cache-pressure-medium/contract"
+import "github.com/roughstack/challenges/challenges/cache-pressure-medium/contract"
 
 type entry struct {
 	key          uint64
