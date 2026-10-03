@@ -227,7 +227,8 @@ func TestDeterministicLogicalMetrics(t *testing.T) {
 	if first.Verdict != "pass" || second.Verdict != "pass" {
 		t.Fatalf("deterministic smoke run failed: %+v / %+v", first.Violations, second.Violations)
 	}
-	if first.Metrics != second.Metrics {
+	if first.Metrics.DecisionsPerSecond != second.Metrics.DecisionsPerSecond ||
+		first.Metrics.ArithmeticWork != second.Metrics.ArithmeticWork {
 		t.Fatalf("logical metrics diverged for the same seed:\n%+v\n%+v", first.Metrics, second.Metrics)
 	}
 	if first.Metrics.ArithmeticWork == 0 || first.Metrics.AllocBytes == 0 {

@@ -69,7 +69,8 @@ Config and request edge cases are deterministic:
 - `arithmetic_work` — deterministic count of `Decide` calls processed during
   the run (minimize).
 - `alloc_bytes` — cumulative heap bytes allocated by the limiter factory and
-  `Decide` calls, measured deterministically with garbage collection disabled.
+  `Decide` calls with garbage collection disabled. This runtime measurement can
+  vary under instrumentation, so official scoring uses repeated calibrated runs.
   Leaner implementations score better (minimize).
 
 Correctness gates scoring. Public smoke output is reproducible but unofficial;

@@ -32,7 +32,8 @@ const (
 	maxViolations = 8
 )
 
-// Metrics are deterministic logical measurements from one workload run.
+// Metrics combines deterministic logical counters with a runtime allocation
+// measurement from one workload run.
 type Metrics struct {
 	DecisionsPerSecond uint64 `json:"decisions_per_second"`
 	ArithmeticWork     uint64 `json:"arithmetic_work"`
@@ -239,7 +240,7 @@ type runner struct {
 }
 
 // call delivers one request to the contestant limiter inside a panic boundary,
-// charges the deterministic allocation volume for the call, and compares the
+// charges the measured allocation volume for the call, and compares the
 // returned decision against the trusted oracle.
 func (r *runner) call(request contract.Request) bool {
 	var before, after runtime.MemStats
