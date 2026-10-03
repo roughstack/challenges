@@ -1,11 +1,11 @@
-# ByteArena public arenas
+# Rough Stack public arenas
 
 This repository contains independently versioned, public systems-engineering
-arenas for the ByteArena platform. Each arena owns its scenario, contestant
+arenas for the Rough Stack platform. Each arena owns its scenario, contestant
 interface, starter, deterministic simulator, public tests, smoke benchmark,
 baseline, and public metric contract.
 
-The ByteArena platform is maintained separately. Arena packages depend on its
+The Rough Stack platform is maintained separately. Arena packages depend on its
 versioned contracts; the platform consumes validated, immutable arena bundles and
 does not import arena source code.
 
@@ -22,7 +22,7 @@ go vet ./...
 go test -race ./...
 ```
 
-Changed manifests must also pass the ByteArena platform validator. Every smoke
+Changed manifests must also pass the Rough Stack platform validator. Every smoke
 benchmark must emit one valid result object and reproduce the same canonical
 result when repeated with the same seed.
 

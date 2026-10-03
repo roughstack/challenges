@@ -3,7 +3,7 @@
   "blocks": [
     {
       "kind": "prose",
-      "md": "A job moves through a small lifecycle: available, leased, then acknowledged—or returned for another attempt. Capacity counts every accepted payload until `Ack`, including work currently held by a worker."
+      "md": "A job moves through a small lifecycle: available, leased, then acknowledged or returned for another attempt. Capacity counts every accepted payload until `Ack`, including work currently held by a worker."
     },
     {
       "kind": "figure",
@@ -38,7 +38,7 @@
       "kind": "example",
       "input": "Enqueue A, B\nLease A (deadline 10)\nNack A\nLease ?",
       "output": "B",
-      "explain": "Nack makes A available again at the back. FIFO is defined by availability, so B—already waiting—must be leased before A."
+      "explain": "Nack makes A available again at the back. FIFO is defined by availability, so B must be leased before A because it is already waiting."
     },
     {
       "kind": "constraints",

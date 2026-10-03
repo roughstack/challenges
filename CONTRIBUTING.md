@@ -26,7 +26,7 @@ go vet ./...
 go test -race ./...
 ```
 
-Also validate every changed `arena.yaml` with the ByteArena platform validator
+Also validate every changed `arena.yaml` with the Rough Stack platform validator
 and run the variant's smoke command twice with the same full-range seed. The two
 canonical result objects must match.
 
