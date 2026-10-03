@@ -6,7 +6,7 @@
 
 - [ ] Repository hygiene check passes.
 - [ ] `gofmt`, `go test`, `go vet`, and applicable race tests pass.
-- [ ] Changed manifests pass the ByteArena platform validator.
+- [ ] Changed manifests pass the Rough Stack platform validator.
 - [ ] Same-seed smoke runs produce identical canonical results.
 - [ ] Contract, resource-accounting, and boundary tests cover the change.
 - [ ] No private workload, ranked seed, calibration data, orchestration artifact, secret, or local path is included.
