@@ -32,3 +32,8 @@ __pycache__/
 /work/
 /.claude/
 /.codex/
+/AGENTS.md
+/PLAN.md
+**/prompt.md
+**/transcript*.jsonl
+**/pi-sessions/
