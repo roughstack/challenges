@@ -39,7 +39,7 @@
       "kind": "example",
       "input": "capacity = 2 entries\nPut(A), Put(B), Get(A), Put(C)",
       "output": "recency: C → A\nevicted: B",
-      "explain": "`Get(A)` makes A newest. When C arrives, B is the oldest entry, so B leaves. Use a map for lookup plus an ordered recency list for constant-time movement."
+      "explain": "`Get(A)` makes A newest. When C arrives, B is the oldest entry, so B leaves. A map from keys to nodes in a doubly linked list gives constant-time lookup, recency updates, and eviction."
     },
     {
       "kind": "constraints",
