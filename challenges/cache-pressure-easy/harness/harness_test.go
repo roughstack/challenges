@@ -3,10 +3,47 @@ package harness
 import (
 	"encoding/json"
 	"reflect"
+	"strings"
 	"testing"
 
+	"github.com/roughstack/challenges/challenges/cache-pressure-easy/contract"
 	"github.com/roughstack/challenges/challenges/cache-pressure-easy/starter"
 )
+
+type neverAdmitCache struct{}
+
+func (neverAdmitCache) Get(uint64, contract.RequestMeta) ([]byte, bool) { return nil, false }
+func (neverAdmitCache) Put(uint64, []byte, contract.RequestMeta)        {}
+func (neverAdmitCache) Delete(uint64)                                   {}
+func (neverAdmitCache) UsedBytes() uint64                               { return 0 }
+
+type ignoreDeleteCache struct{ contract.Cache }
+
+func (ignoreDeleteCache) Delete(uint64) {}
+
+func TestEvaluateRejectsCachesThatDoNotImplementTheContract(t *testing.T) {
+	tests := []struct {
+		name    string
+		factory contract.Factory
+		want    string
+	}{
+		{"never admits", func(uint64) contract.Cache { return neverAdmitCache{} }, "admit"},
+		{"ignores delete", func(capacity uint64) contract.Cache {
+			return ignoreDeleteCache{starter.NewCache(capacity)}
+		}, "Delete"},
+		{"nil cache", func(uint64) contract.Cache { return nil }, "nil"},
+		{"nil factory", nil, "nil"},
+		{"panicking factory", func(uint64) contract.Cache { panic("broken") }, "panicked"},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			result := Evaluate(17, DefaultPublicConfig(), test.factory)
+			if result.Verdict != "fail" || len(result.Violations) == 0 || !strings.Contains(result.Violations[0], test.want) {
+				t.Fatalf("expected %q failure, got %+v", test.want, result)
+			}
+		})
+	}
+}
 
 func TestEvaluateIsDeterministicAndWithinCapacity(t *testing.T) {
 	config := DefaultPublicConfig()
