@@ -1,3 +1,7 @@
+version: 1
+score_range: [0, 10000]
+correctness_gate: true
+public_score: unofficial
 metrics:
   decisions_per_second:
     weight: 0.60
