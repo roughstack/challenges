@@ -63,7 +63,7 @@
     {
       "kind": "callout",
       "tone": "note",
-      "title": "Read the score as overhead",
+      "title": "Read the metrics as overhead",
       "md": "Completion ticks measure waiting; transmitted bytes, packet count, and retransmissions measure how much extra work reliability required; state bytes price the protocol memory."
     }
   ]

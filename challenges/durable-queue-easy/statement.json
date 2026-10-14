@@ -60,7 +60,7 @@
       "kind": "callout",
       "tone": "note",
       "title": "Why virtual time matters",
-      "md": "Lease expiry is driven by the injected `nowTick`, never wall time. The same seed therefore produces the same redeliveries and logical wait measurements. The public score is currently unofficial."
+      "md": "Lease expiry is driven by the injected `nowTick`, never wall time. The same seed therefore produces the same redeliveries and logical wait measurements. This practice challenge is not ranked yet."
     }
   ]
 }

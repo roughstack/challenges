@@ -35,8 +35,8 @@
     },
     {
       "kind": "example",
-      "input": "capacity = 2 entries\nPut(A), Put(B), Get(A), Put(C)",
-      "output": "recency: C → A\nevicted: B",
+      "input": "capacity = 66 bytes (two 1-byte values, each charged 32 metadata bytes)\nPut(A, 1B), Put(B, 1B), Get(A), Put(C, 1B)",
+      "output": "newest → oldest: C, A\nevicted: B",
       "explain": "`Get(A)` makes A newest. When C arrives, B is the oldest entry, so B leaves. A map from keys to nodes in a doubly linked list gives constant-time lookup, recency updates, and eviction."
     },
     {
@@ -53,14 +53,14 @@
       "items": [
         { "title": "Make accounting exact", "md": "Centralize each entry's charged size and update it on insert, replacement, and eviction." },
         { "title": "Separate lookup from order", "md": "Use one structure to find a key and another to move that entry to the newest position." },
-        { "title": "Optimize after correctness", "md": "A linear list can pass semantics; constant-time recency maintenance improves `metadata_work`." }
+        { "title": "Optimize after correctness", "md": "A linear list can pass semantics; a map plus linked list improves actual lookup and update time. The public `metadata_work` counter does not measure that internal time." }
       ]
     },
     {
       "kind": "callout",
       "tone": "note",
-      "title": "What the score is saying",
-      "md": "`backing_reads` counts misses on the public trace. `metadata_work` counts harness-visible calls and accounting checks; it does not measure the time your internal recency structure takes. Correctness is the gate, and the public score is currently unofficial."
+      "title": "What the metrics say",
+      "md": "`backing_reads` counts misses on the public trace. `metadata_work` counts harness-visible calls and accounting checks; it does not measure the time your internal recency structure takes. Correctness is the gate; this practice challenge is not ranked yet."
     }
   ]
 }
