@@ -74,6 +74,10 @@ func TestScanResistanceWorkloadAndFloor(t *testing.T) {
 	if noCacheRate != 0 {
 		t.Fatalf("no-cache policy reported a non-zero hit rate: %d", noCacheRate)
 	}
+	noCacheResult := Evaluate(^uint64(0), config, newNoCache)
+	if noCacheResult.Verdict != "fail" || !containsViolation(noCacheResult.Violations, "request hit rate is below the public minimum") {
+		t.Fatalf("never-admit cache escaped the public performance floor: %+v", noCacheResult)
+	}
 	if starterRate < ScanResistanceFloorBasisPoints {
 		t.Fatalf("starter request hit rate %d is below the published floor %d", starterRate, ScanResistanceFloorBasisPoints)
 	}

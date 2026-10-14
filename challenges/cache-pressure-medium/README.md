@@ -60,7 +60,10 @@ protection against scan pollution.
   budget at peak occupancy. Lower means the cache exploited its budget more fully;
   it is a soft signal alongside the hit-rate and cost metrics.
 
-Correctness gates scoring. Public smoke output is reproducible but unofficial;
+The default public workload also requires a request hit rate of at least 4000
+basis points (40%). This rejects a never-admit policy without requiring one
+particular eviction or admission algorithm. Correctness gates scoring. Public
+smoke output is reproducible but unofficial;
 normalization and calibration belong to the platform and private judge.
 
 ## Verify
