@@ -9,19 +9,17 @@
       "kind": "figure",
       "label": "FIG 1",
       "illustration": {
-        "id": "systems.flow",
+        "id": "systems.snapshot",
         "props": {
-          "label": "A cache read path",
-          "nodes": [
-            { "label": "Request", "detail": "Get key 7" },
-            { "label": "Cache", "detail": "Look up and refresh recency", "tone": "accent" },
-            { "label": "Backing store", "detail": "Read only on a miss", "tone": "warning" },
-            { "label": "Caller", "detail": "Receive an owned copy", "tone": "signal" }
-          ],
-          "edges": ["lookup", "miss", "fill + return"]
+          "title": "Oldest on the left · newest on the right",
+          "rows": [
+            { "label": "After two puts", "cells": [{ "label": "A", "detail": "oldest", "tone": "warning" }, { "label": "B", "detail": "newest", "tone": "accent" }] },
+            { "label": "Get A", "cells": [{ "label": "B", "detail": "oldest", "tone": "warning" }, { "label": "A", "detail": "newest", "tone": "signal" }], "note": "A hit changes order without fetching from the backing store." },
+            { "label": "Put C", "cells": [{ "label": "A", "detail": "oldest", "tone": "accent" }, { "label": "C", "detail": "newest", "tone": "signal" }], "note": "B leaves because it was least recently used." }
+          ]
         }
       },
-      "caption": "A hit skips the backing store. A miss fetches once, admits the value if it fits, and returns a copy."
+      "caption": "One hit changes the eviction decision. This two-entry example illustrates order; real capacity counts each value's bytes plus metadata."
     },
     {
       "kind": "callout",
@@ -62,7 +60,7 @@
       "kind": "callout",
       "tone": "note",
       "title": "What the score is saying",
-      "md": "Fewer `backing_reads` means the policy retained useful data. Lower `metadata_work` means the same decisions required less bookkeeping. Correctness is always the gate."
+      "md": "`backing_reads` counts misses on the public trace. `metadata_work` counts harness-visible calls and accounting checks; it does not measure the time your internal recency structure takes. Correctness is the gate, and the public score is currently unofficial."
     }
   ]
 }
