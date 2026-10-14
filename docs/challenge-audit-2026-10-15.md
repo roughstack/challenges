@@ -8,6 +8,10 @@ lists the adversarial and boundary tests each challenge should ultimately own.
 
 - All ten Go starters passed their public smoke workloads at seeds `12345` and
   `987654321`. The full Go suite passed with the race detector.
+- All ten starters were submitted through the web platform's production build
+  and completed with passing verdicts in an isolated local database. This caught
+  a platform result-schema mismatch: Journal Recovery and Lossy Link include
+  the optional `run.fault_profile` field, which the platform now accepts.
 - The original SSD execution runtime's Go and conformance suites passed.
 - All thirteen challenge pages rendered an accessible educational diagram in
   the browser. The web unit suite, a phone-sized problem/editor interaction
@@ -16,6 +20,10 @@ lists the adversarial and boundary tests each challenge should ultimately own.
   LRU, accounting, aliasing, deletion, or oversized-replacement implementation.
   The medium cache now enforces its advertised 40% request-hit floor on the
   default public workload, so a never-admit cache fails.
+- A production node needs both the published arena registry and access to the
+  matching challenge packages. Registry-only mode can display previously
+  materialized database content, but cannot refresh statements or execute a
+  package that is unavailable locally.
 
 ## Challenge-by-challenge conclusion
 
