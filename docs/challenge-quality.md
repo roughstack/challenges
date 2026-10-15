@@ -3,8 +3,9 @@
 Every challenge needs three independent forms of evidence: a valid implementation
 passes, a deliberately invalid implementation fails for the right reason, and
 the same seed produces the same logical result. Unit coverage alone cannot prove
-these properties. The public starter is a feasibility witness, not an optimum
-or a substitute for adversarial testing.
+these properties. The public baseline is a feasibility witness, not an optimum
+or a substitute for adversarial testing. The learner-facing starter must be an
+incomplete, compilable scaffold, never that passing baseline.
 
 ## Shared acceptance checks
 
@@ -15,7 +16,7 @@ or a substitute for adversarial testing.
    contract defines their behavior.
 3. Compare each small generated case with an independent, simple oracle. Vary
    seeds and sizes; avoid reusing the contestant implementation as the oracle.
-4. Run a known-correct starter and at least one targeted broken implementation
+4. Run a known-correct baseline and at least one targeted broken implementation
    through the public harness. Assert the verdict and the relevant violation.
 5. Repeat a seed and compare logical metrics and output. Measure runtime-derived
    allocation metrics separately; they are not deterministic logical counters.

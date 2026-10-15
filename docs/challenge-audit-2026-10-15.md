@@ -6,9 +6,9 @@ lists the adversarial and boundary tests each challenge should ultimately own.
 
 ## Evidence checked
 
-- All ten Go starters passed their public smoke workloads at seeds `12345` and
+- All ten public Go baselines passed their smoke workloads at seeds `12345` and
   `987654321`. The full Go suite passed with the race detector.
-- All ten starters were submitted through the web platform's production build
+- All ten baselines were submitted through the web platform's production build
   and completed with passing verdicts in an isolated local database. This caught
   a platform result-schema mismatch: Journal Recovery and Lossy Link include
   the optional `run.fault_profile` field, which the platform now accepts.
@@ -24,18 +24,23 @@ lists the adversarial and boundary tests each challenge should ultimately own.
   matching challenge packages. Registry-only mode can display previously
   materialized database content, but cannot refresh statements or execute a
   package that is unavailable locally.
+- Follow-up visual review found that the browser was prefilled with the passing
+  baseline. The manifests now declare a separate `submission.starter`, and
+  all ten packages provide incomplete learner scaffolds while retaining the
+  public baseline at `submission.entrypoint`. The scaffold path is validated
+  separately from the file overwritten during a run.
 
 ## Challenge-by-challenge conclusion
 
 | Challenge | Does the problem have a coherent solution? | Public evidence and next gap |
 | --- | --- | --- |
-| Cache Pressure, easy | Yes. Exact LRU behavior is prescribed; implementations need not share a data structure. | Starter and contract probe pass. Add a small independent model across randomized operation sequences and a candidate that lies about `UsedBytes` while retaining data. |
-| Cache Pressure, medium | Yes. Many admission/eviction policies are legal; the public workload now requires at least 40% request hits. | Starter passes the floor across the checked seeds; never-admit fails. Add a model-based TTL/accounting probe independent of the generated workload, especially replacement at an exact expiry tick. |
+| Cache Pressure, easy | Yes. Exact LRU behavior is prescribed; implementations need not share a data structure. | Baseline and contract probe pass. Add a small independent model across randomized operation sequences and a candidate that lies about `UsedBytes` while retaining data. |
+| Cache Pressure, medium | Yes. Many admission/eviction policies are legal; the public workload now requires at least 40% request hits. | Baseline passes the floor across the checked seeds; never-admit fails. Add a model-based TTL/accounting probe independent of the generated workload, especially replacement at an exact expiry tick. |
 | Chunk Store | Yes. Bytes returned and frame-local integrity are definite even though internal indexing can differ. | Corrupt length, checksum, over-allocation, unrelated reads, and reclaim tests exist. Expand every-tail-truncation and cross-block read cases under a tiny independent frame oracle. |
 | Deadline Scheduler | Yes. Many fair, non-preemptive schedules are valid; no single order is mandated. | Arrival, ties, aging, idle gaps, failure gating, and starter tests pass. Add exhaustive short-job schedule comparison to validate flow-time accounting and starvation bounds. |
 | Durable Work Queue | Yes. The visible lease/ack/nack behavior is definite; lock and storage choices are not. | Correctness, panic, nil, and watchdog tests pass. Add a concurrent history checker for no loss or duplication and more exact visibility-deadline ties. |
 | Fair Gate | Yes. Given a token bucket config and request trace, allow/deny and retry tick are mathematically determined. | Tests reject over-admission, over-charging, and wrong retry ticks. Add an independent rational-arithmetic oracle for randomly generated short traces and overflow boundaries. |
-| Journal Recovery | Yes. Recovery must return the valid durable prefix, regardless of internal data structure. | Torn tails, LSN gaps/duplicates, callback errors, corruption, panic, and nil cases pass. Add every possible truncation position for short encoded logs and interior-versus-tail fault pairs. |
+| Journal Recovery | Yes. Recovery must return the valid durable prefix, regardless of internal data structure. | Every byte-tail truncation of a short encoded log, plus LSN gaps/duplicates, callback errors, corruption, panic, and nil cases pass. Add more interior-versus-tail fault pairs and an independent prefix oracle. |
 | Lossy Link | Yes. Delivered bytes are fixed; retransmission schedule and packet count can vary. | Loss, corruption, duplicate, stale ACK, timer, wrap, and boundary tests pass. Add a bounded fault-sequence enumerator to check safety and liveness against many combined faults. |
 | LSM Compactor | Yes. Several legal plans exist; reads after merging must preserve newest-version and tombstone semantics. | Invalid overlap closure, stale/duplicate plans, tombstones, empty runs, and tie-breaking pass. Add an independent key-version map oracle over enumerated small run graphs. |
 | Stream Windows | Yes. Half-open window assignment and finalized sums are unique for a legal event trace. | Boundary, regression, duplicate/premature output, negative sum, close, and max-tick tests pass. Add randomized per-key map oracle and repeated watermark/event interleavings. |
@@ -46,7 +51,7 @@ lists the adversarial and boundary tests each challenge should ultimately own.
 ## Publication limits
 
 All ten generated public smoke results currently report `score: 0`, including
-correct starters. Their weighted scoring files are design intent, not an active
+correct baselines. Their weighted scoring files are design intent, not an active
 ranking system. Some displayed measurements, notably fair-gate throughput and
 arithmetic work and stream-window event throughput/output delay, are fixed by
 the public trace once the answer is correct; they should be labeled as trace
