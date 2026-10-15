@@ -2,7 +2,7 @@ apiVersion: bytearena.dev/v1
 kind: Arena
 metadata:
   id: durable-queue-easy
-  version: 1.0.0
+  version: 1.0.1
   title: Durable Work Queue
   visibility: public
   mode: practice
@@ -11,6 +11,7 @@ metadata:
 submission:
   language: go
   entrypoint: starter/queue.go
+  starter: learner/starter.go
   interface: bytearena.durablequeue.Queue/v1
 build:
   command: ["go", "test", "./challenges/durable-queue-easy/..."]

@@ -2,7 +2,7 @@ apiVersion: bytearena.dev/v1
 kind: Arena
 metadata:
   id: cache-pressure-easy
-  version: 1.0.0
+  version: 1.0.1
   title: Cache Pressure
   visibility: public
   mode: practice
@@ -11,6 +11,7 @@ metadata:
 submission:
   language: go
   entrypoint: starter/cache.go
+  starter: learner/starter.go
   interface: bytearena.cache.Cache/v1
 build:
   command: ["go", "test", "./challenges/cache-pressure-easy/..."]
