@@ -18,7 +18,7 @@ const (
 	// ArenaID is the stable public identifier for this variant.
 	ArenaID = "stream-windows-easy"
 	// ArenaVersion is the immutable public version for this variant.
-	ArenaVersion = "1.0.0"
+	ArenaVersion = "1.0.1"
 	// WorkloadID identifies the deterministic public smoke workload.
 	WorkloadID = "public-smoke-v1"
 	// ticksPerLogicalSecond converts the injected virtual tick into a logical

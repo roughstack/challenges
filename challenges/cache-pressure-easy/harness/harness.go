@@ -12,7 +12,7 @@ import (
 
 const (
 	ArenaID      = "cache-pressure-easy"
-	ArenaVersion = "1.0.0"
+	ArenaVersion = "1.0.1"
 	WorkloadID   = "public-smoke-v1"
 	valueBytes   = 96
 )

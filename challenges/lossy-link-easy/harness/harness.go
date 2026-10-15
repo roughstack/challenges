@@ -14,7 +14,7 @@ import (
 
 const (
 	ArenaID      = "lossy-link-easy"
-	ArenaVersion = "1.0.0"
+	ArenaVersion = "1.0.1"
 	WorkloadID   = "public-smoke-v1"
 
 	// maxTicks bounds the virtual event loop. Reaching it without completing

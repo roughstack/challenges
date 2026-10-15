@@ -11,7 +11,7 @@ import (
 
 const (
 	ArenaID      = "cache-pressure-medium"
-	ArenaVersion = "1.0.0"
+	ArenaVersion = "1.0.1"
 	WorkloadID   = "public-smoke-v1"
 )
 

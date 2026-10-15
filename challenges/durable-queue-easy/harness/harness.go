@@ -20,7 +20,7 @@ const (
 	// ArenaID is the stable public identifier for this variant.
 	ArenaID = "durable-queue-easy"
 	// ArenaVersion is the immutable public version for this variant.
-	ArenaVersion = "1.0.0"
+	ArenaVersion = "1.0.1"
 	// WorkloadID identifies the deterministic public smoke workload.
 	WorkloadID = "public-smoke-v1"
 )
