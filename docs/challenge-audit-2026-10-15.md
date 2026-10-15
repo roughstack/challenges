@@ -29,6 +29,13 @@ lists the adversarial and boundary tests each challenge should ultimately own.
   all ten packages provide incomplete learner scaffolds while retaining the
   public baseline at `submission.entrypoint`. The scaffold path is validated
   separately from the file overwritten during a run.
+- Version `1.0.1` of every harness now matches its manifest after the scaffold
+  release. A real submission of the easy-cache public baseline at this version
+  passed through the platform execution API; submitting the untouched learner
+  scaffold failed its public tests as expected. The platform's arena validator
+  checks Go harness and manifest versions for future drift. Browser checks
+  confirmed that all ten practice editors display unfinished code, and the
+  expanded visual and responsive suites passed.
 
 ## Challenge-by-challenge conclusion
 
