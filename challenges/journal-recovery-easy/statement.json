@@ -8,17 +8,10 @@
     {
       "kind": "figure",
       "label": "FIG 1",
+      "presentation": "immersive",
       "illustration": {
-        "id": "systems.frames",
-        "props": {
-          "title": "The durable prefix ends after LSN 2",
-          "note": "recovery scans left to right",
-          "frames": [
-            { "label": "LSN 1", "status": "synced", "tone": "signal", "fields": [{ "label": "magic", "tone": "accent" }, { "label": "len + seq", "tone": "accent" }, { "label": "payload", "tone": "signal" }, { "label": "CRC", "tone": "warning" }] },
-            { "label": "LSN 2", "status": "synced", "tone": "signal", "fields": [{ "label": "magic", "tone": "accent" }, { "label": "len + seq", "tone": "accent" }, { "label": "payload", "tone": "signal" }, { "label": "CRC", "tone": "warning" }] },
-            { "label": "LSN 3", "status": "torn tail", "tone": "danger", "fields": [{ "label": "magic", "tone": "accent" }, { "label": "len + seq", "tone": "accent" }, { "label": "partial", "detail": "payload", "tone": "danger" }, { "label": "missing", "detail": "bytes + CRC", "tone": "neutral" }], "note": "A declared frame that ends early is not applied." }
-          ]
-        }
+        "id": "systems.journal-story",
+        "props": {}
       },
       "caption": "Append gives a record an LSN, but only Sync makes the requested prefix durable. Recovery trusts structure and checksum, not intent."
     },

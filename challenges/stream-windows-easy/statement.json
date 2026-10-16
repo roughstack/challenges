@@ -8,20 +8,12 @@
     {
       "kind": "figure",
       "label": "FIG 1",
+      "presentation": "immersive",
       "illustration": {
-        "id": "systems.ranges",
-        "props": {
-          "title": "Half-open windows on the event-time axis",
-          "min": 0,
-          "max": 20,
-          "rows": [
-            { "label": "[0, 10)", "start": 0, "end": 10, "tone": "signal", "note": "api +3 and api +5 · emit count 2, sum 8" },
-            { "label": "[10, 20)", "start": 10, "end": 20, "tone": "warning", "note": "db +2 · still live at watermark 10" }
-          ],
-          "markers": [{ "at": 10, "label": "watermark", "tone": "accent" }]
-        }
+        "id": "systems.window-story",
+        "props": {}
       },
-      "caption": "At watermark 10, Window 0 is final: emit api(count=2, sum=8) and evict it. Window 1 remains live."
+      "caption": "Tick 9 belongs to [0,10); tick 10 begins [10,20). Watermark 10 emits the first aggregate once and evicts it while the second window stays live."
     },
     {
       "kind": "callout",
