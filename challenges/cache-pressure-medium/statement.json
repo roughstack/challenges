@@ -8,16 +8,10 @@
     {
       "kind": "figure",
       "label": "FIG 1",
+      "presentation": "immersive",
       "illustration": {
-        "id": "systems.snapshot",
-        "props": {
-          "title": "What a one-time scan does to a small cache",
-          "rows": [
-            { "label": "Warm", "cells": [{ "label": "H1", "tone": "signal" }, { "label": "H2", "tone": "signal" }, { "label": "H3", "tone": "signal" }], "note": "The hot set is reused often." },
-            { "label": "Cold scan", "cells": [{ "label": "S1", "tone": "warning" }, { "label": "S2", "tone": "warning" }, { "label": "S3", "tone": "warning" }], "note": "Pure LRU fills the budget with one-hit keys." },
-            { "label": "Return", "cells": [{ "label": "H1 miss", "tone": "danger" }, { "label": "H2 miss", "tone": "danger" }, { "label": "H3 miss", "tone": "danger" }], "note": "A protected hot segment would keep these requests cheap." }
-          ]
-        }
+        "id": "systems.cache-story",
+        "props": { "mode": "scan" }
       },
       "caption": "Pure LRU mistakes recent for reusable. A one-time scan looks important long enough to evict the data that will actually return."
     },
