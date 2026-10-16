@@ -6,8 +6,9 @@ interface, learner scaffold, deterministic simulator, public tests, smoke
 benchmark, public baseline, and metric contract.
 
 The Rough Stack platform is maintained separately. Challenge packages depend on
-versioned contracts; the platform consumes validated, immutable challenge bundles
-and does not import challenge source code.
+versioned contracts. Today, a local platform checkout validates and reads a
+separate challenge checkout from disk. Published immutable bundles are a future
+distribution format, not a requirement for running or contributing locally.
 
 The current manifest filename and protocol fields retain the `arena` name for
 compatibility with the pre-release platform. They will change only through a
@@ -38,11 +39,15 @@ Changed manifests must also pass the Rough Stack platform validator. Every smoke
 benchmark must emit one valid result object and reproduce the same canonical
 result when repeated with the same seed.
 
-## Initial build order
+## Local platform integration
 
-The first public implementation slice is `cache-pressure-easy`. The remaining
-families are added one at a time after the preceding challenge passes tests,
-determinism checks, and the platform manifest validator.
+Clone this repository beside `roughstack/web-platform` and follow the
+[web-platform local setup](https://github.com/roughstack/web-platform#running-it).
+The platform's `BYTEARENA_ARENA_ROOTS` setting should point to this repository's
+`challenges/` directory. Its opt-in real-run check submits the easy-cache public
+baseline and learner scaffold to the local Docker runner. Public baselines are
+practice feasibility witnesses; the generated arenas do not yet provide ranked
+scores or multi-language submissions.
 
 ## Contributing and security
 
