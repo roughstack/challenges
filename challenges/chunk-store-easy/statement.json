@@ -9,16 +9,10 @@
       "kind": "figure",
       "label": "FIG 1",
       "illustration": {
-        "id": "systems.frames",
-        "props": {
-          "title": "One blob · independently readable frames",
-          "note": "ReadAt uses the index to select a frame",
-          "frames": [
-            { "label": "Block 0", "status": "not read", "tone": "neutral", "fields": [{ "label": "header", "detail": "lengths", "tone": "neutral" }, { "label": "AAAA", "detail": "payload", "tone": "neutral" }, { "label": "CRC", "detail": "integrity", "tone": "neutral" }] },
-            { "label": "Block 1", "status": "read + verified", "tone": "signal", "fields": [{ "label": "header", "detail": "lengths", "tone": "accent" }, { "label": "BCDE", "detail": "requested CD", "tone": "signal" }, { "label": "CRC", "detail": "checked", "tone": "warning" }], "note": "Offset 5, length 2 touches only this block in the example below." }
-          ]
-        }
+        "id": "systems.chunk-story",
+        "props": {}
       },
+      "presentation": "immersive",
       "caption": "Compression and integrity are block-local. That locality is what makes exact random reads cheap and bounded."
     },
     {
