@@ -8,16 +8,10 @@
     {
       "kind": "figure",
       "label": "FIG 1",
+      "presentation": "immersive",
       "illustration": {
-        "id": "systems.snapshot",
-        "props": {
-          "title": "Oldest on the left · newest on the right",
-          "rows": [
-            { "label": "After two puts", "cells": [{ "label": "A", "detail": "oldest", "tone": "warning" }, { "label": "B", "detail": "newest", "tone": "accent" }] },
-            { "label": "Get A", "cells": [{ "label": "B", "detail": "oldest", "tone": "warning" }, { "label": "A", "detail": "newest", "tone": "signal" }], "note": "A hit changes order without fetching from the backing store." },
-            { "label": "Put C", "cells": [{ "label": "A", "detail": "oldest", "tone": "accent" }, { "label": "C", "detail": "newest", "tone": "signal" }], "note": "B leaves because it was least recently used." }
-          ]
-        }
+        "id": "systems.cache-story",
+        "props": { "mode": "lru" }
       },
       "caption": "One hit changes the eviction decision. This two-entry example illustrates order; real capacity counts each value's bytes plus metadata."
     },

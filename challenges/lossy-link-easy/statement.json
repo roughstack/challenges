@@ -8,20 +8,10 @@
     {
       "kind": "figure",
       "label": "FIG 1",
+      "presentation": "immersive",
       "illustration": {
-        "id": "systems.exchange",
-        "props": {
-          "title": "A lost ACK is why duplicates must be safe",
-          "left": "Sender",
-          "right": "Receiver",
-          "events": [
-            { "from": "left", "label": "DATA 0 · abc", "detail": "deliver abc", "tone": "signal" },
-            { "from": "right", "label": "ACK 0", "detail": "waiting", "dropped": true, "tone": "danger" },
-            { "from": "local", "label": "timer fires", "tone": "warning" },
-            { "from": "left", "label": "DATA 0 · retry", "detail": "duplicate, no delivery", "tone": "warning" },
-            { "from": "right", "label": "ACK 0 again", "detail": "advance to 1", "tone": "accent" }
-          ]
-        }
+        "id": "systems.lost-ack-story",
+        "props": {}
       },
       "caption": "Loss or corruption leaves the sender waiting. When its timer fires, it retransmits the same packet; the receiver discards duplicates but repeats the ACK."
     },
