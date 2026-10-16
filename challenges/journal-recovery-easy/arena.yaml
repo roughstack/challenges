@@ -2,7 +2,7 @@ apiVersion: bytearena.dev/v1
 kind: Arena
 metadata:
   id: journal-recovery-easy
-  version: 1.0.0
+  version: 1.0.1
   title: Journal Recovery
   visibility: public
   mode: practice
@@ -11,6 +11,7 @@ metadata:
 submission:
   language: go
   entrypoint: starter/journal.go
+  starter: learner/starter.go
   interface: bytearena.journal.Journal/v1
 build:
   command: ["go", "test", "./challenges/journal-recovery-easy/..."]

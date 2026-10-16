@@ -9,16 +9,16 @@
       "kind": "figure",
       "label": "FIG 1",
       "illustration": {
-        "id": "systems.flow",
+        "id": "systems.budget",
         "props": {
-          "label": "Token bucket decision",
-          "nodes": [
-            { "label": "Elapsed ticks", "detail": "Compute lazy refill" },
-            { "label": "Bucket", "detail": "Clamp tokens to Burst", "tone": "accent" },
-            { "label": "Request cost", "detail": "Compare whole tokens", "tone": "warning" },
-            { "label": "Decision", "detail": "Allow or exact RetryAt", "tone": "signal" }
-          ],
-          "edges": ["refill", "then", "emit"]
+          "title": "A burst of four tokens · refill two per three ticks",
+          "capacity": 4,
+          "snapshots": [
+            { "label": "tick 0 · full", "segments": [{ "label": "available", "value": 4, "tone": "signal" }] },
+            { "label": "tick 0 · after cost 3", "segments": [{ "label": "available", "value": 1, "tone": "warning" }], "note": "a second cost-3 request is rejected" },
+            { "label": "tick 3 · before retry", "segments": [{ "label": "available", "value": 3, "tone": "signal" }], "note": "two tokens accrued lazily" },
+            { "label": "tick 3 · after retry", "segments": [{ "label": "available", "value": 0, "tone": "accent" }], "note": "the retry is now admitted" }
+          ]
         }
       },
       "caption": "No timer updates the bucket in the background. Each request first accounts for elapsed virtual time, then makes one deterministic decision."
@@ -62,7 +62,7 @@
       "kind": "callout",
       "tone": "note",
       "title": "Optimization target",
-      "md": "Once decisions and `RetryAt` are exact, reduce repeated arithmetic and allocation. Throughput rewards the fast path; `arithmetic_work` makes avoidable recomputation visible."
+      "md": "Once decisions and `RetryAt` are exact, allocations may distinguish implementations. The public `decisions_per_second` and `arithmetic_work` counters depend on the fixed trace, not on how fast your code runs or how many arithmetic operations it performs."
     }
   ]
 }

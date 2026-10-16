@@ -9,19 +9,21 @@
       "kind": "figure",
       "label": "FIG 1",
       "illustration": {
-        "id": "systems.flow",
+        "id": "systems.ranges",
         "props": {
-          "label": "Two-level LSM lifecycle",
-          "nodes": [
-            { "label": "Memtable", "detail": "Mutable recent entries", "tone": "signal" },
-            { "label": "Level 0", "detail": "New immutable, overlapping runs", "tone": "warning" },
-            { "label": "Compaction", "detail": "Merge newest value per key", "tone": "accent" },
-            { "label": "Level 1", "detail": "Sorted non-overlapping runs" }
+          "title": "Selecting A + B closes over both Level-1 runs",
+          "min": 0,
+          "max": 60,
+          "rows": [
+            { "label": "L0 A", "start": 10, "end": 30, "tone": "warning", "note": "Selected run" },
+            { "label": "L0 B", "start": 25, "end": 50, "tone": "warning", "note": "Selected run, overlaps A" },
+            { "label": "L1 X", "start": 0, "end": 20, "tone": "accent", "note": "Must join: overlaps A" },
+            { "label": "L1 Y", "start": 40, "end": 60, "tone": "accent", "note": "Must join: overlaps B" }
           ],
-          "edges": ["flush", "pick inputs", "rewrite"]
+          "markers": [{ "at": 10, "label": "union starts", "tone": "signal" }, { "at": 50, "label": "union ends", "tone": "signal" }]
         }
       },
-      "caption": "Waiting creates more Level-0 overlap and read work. Compacting too eagerly rewrites data repeatedly and stalls the write path."
+      "caption": "The selected Level-0 range spans keys 10 to 50. Both Level-1 runs intersect it, so a legal merge must include X and Y."
     },
     {
       "kind": "callout",

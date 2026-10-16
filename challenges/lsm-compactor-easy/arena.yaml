@@ -2,7 +2,7 @@ apiVersion: bytearena.dev/v1
 kind: Arena
 metadata:
   id: lsm-compactor-easy
-  version: 1.0.0
+  version: 1.0.1
   title: LSM Compactor
   visibility: public
   mode: practice
@@ -11,6 +11,7 @@ metadata:
 submission:
   language: go
   entrypoint: starter/starter.go
+  starter: learner/starter.go
   interface: bytearena.lsmcompactor.Policy/v1
 build:
   command: ["go", "test", "./challenges/lsm-compactor-easy/..."]

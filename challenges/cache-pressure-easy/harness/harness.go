@@ -3,6 +3,7 @@ package harness
 
 import (
 	"bytes"
+	"fmt"
 	"strconv"
 
 	"github.com/roughstack/challenges/challenges/cache-pressure-easy/contract"
@@ -11,7 +12,7 @@ import (
 
 const (
 	ArenaID      = "cache-pressure-easy"
-	ArenaVersion = "1.0.0"
+	ArenaVersion = "1.0.1"
 	WorkloadID   = "public-smoke-v1"
 	valueBytes   = 96
 )
@@ -62,8 +63,8 @@ func DefaultPublicConfig() PublicConfig {
 }
 
 // Evaluate runs a policy-independent request stream against a contestant cache.
-func Evaluate(seed uint64, config PublicConfig, factory contract.Factory) Result {
-	result := Result{
+func Evaluate(seed uint64, config PublicConfig, factory contract.Factory) (result Result) {
+	result = Result{
 		ProtocolVersion: 1,
 		ArenaID:         ArenaID,
 		ArenaVersion:    ArenaVersion,
@@ -75,8 +76,29 @@ func Evaluate(seed uint64, config PublicConfig, factory contract.Factory) Result
 			WorkloadID: WorkloadID,
 		},
 	}
+	defer func() {
+		if recovered := recover(); recovered != nil {
+			result.Verdict = "fail"
+			result.Violations = append(result.Violations, fmt.Sprintf("contestant panicked: %v", recovered))
+		}
+	}()
+	if factory == nil {
+		result.Verdict = "fail"
+		result.Violations = append(result.Violations, "cache factory is nil")
+		return result
+	}
+	if violation := validateCacheContract(seed, factory); violation != "" {
+		result.Verdict = "fail"
+		result.Violations = append(result.Violations, violation)
+		return result
+	}
 
 	cache := factory(config.CapacityBytes)
+	if cache == nil {
+		result.Verdict = "fail"
+		result.Violations = append(result.Violations, "cache factory returned nil")
+		return result
+	}
 	versions := make(map[uint64]uint64)
 	operations := workload.Generate(workload.Config{
 		Seed:       seed,
@@ -138,6 +160,62 @@ func Evaluate(seed uint64, config PublicConfig, factory contract.Factory) Result
 		result.Verdict = "fail"
 	}
 	return result
+}
+
+// validateCacheContract uses a fresh, small instance to check exact LRU
+// semantics independently of the larger performance workload. Otherwise a
+// cache that always misses could pass while implementing none of the contract.
+func validateCacheContract(seed uint64, factory contract.Factory) string {
+	unit := contract.AccountedBytes([]byte{1})
+	cache := factory(2 * unit)
+	if cache == nil {
+		return "cache factory returned nil during contract check"
+	}
+	a, b, c := seed+1, seed+2, seed+3
+	first := []byte{0x11}
+	cache.Put(a, first, contract.RequestMeta{})
+	first[0] = 0xff
+	cache.Put(b, []byte{0x22}, contract.RequestMeta{})
+	if cache.UsedBytes() != 2*unit {
+		return "cache must admit and exactly account for two fitting entries"
+	}
+	value, ok := cache.Get(a, contract.RequestMeta{})
+	if !ok || !bytes.Equal(value, []byte{0x11}) {
+		return "cache must return the stored value without aliasing the input"
+	}
+	value[0] = 0xee
+	value, ok = cache.Get(a, contract.RequestMeta{})
+	if !ok || !bytes.Equal(value, []byte{0x11}) {
+		return "cache Get must return an owned copy"
+	}
+	cache.Put(c, []byte{0x33}, contract.RequestMeta{})
+	if _, ok := cache.Get(b, contract.RequestMeta{}); ok {
+		return "cache must evict the least recently used entry"
+	}
+	for key, want := range map[uint64]byte{a: 0x11, c: 0x33} {
+		value, ok = cache.Get(key, contract.RequestMeta{})
+		if !ok || !bytes.Equal(value, []byte{want}) {
+			return "cache evicted or changed a more recent entry"
+		}
+	}
+	cache.Delete(a)
+	if _, ok := cache.Get(a, contract.RequestMeta{}); ok || cache.UsedBytes() != unit {
+		return "cache Delete must remove the key and release its accounted bytes"
+	}
+	cache.Put(c, make([]byte, 2*unit), contract.RequestMeta{})
+	value, ok = cache.Get(c, contract.RequestMeta{})
+	if !ok || !bytes.Equal(value, []byte{0x33}) || cache.UsedBytes() != unit {
+		return "oversized replacement must leave the resident value intact"
+	}
+	zero := factory(0)
+	if zero == nil {
+		return "cache factory returned nil for zero capacity"
+	}
+	zero.Put(a, []byte{0x11}, contract.RequestMeta{})
+	if _, ok := zero.Get(a, contract.RequestMeta{}); ok || zero.UsedBytes() != 0 {
+		return "zero-capacity cache must not admit entries"
+	}
+	return ""
 }
 
 func backingValue(seed, key, version uint64) []byte {

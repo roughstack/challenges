@@ -2,7 +2,7 @@ apiVersion: bytearena.dev/v1
 kind: Arena
 metadata:
   id: fair-gate-easy
-  version: 1.0.0
+  version: 1.0.1
   title: Fair Gate
   visibility: public
   mode: practice
@@ -11,6 +11,7 @@ metadata:
 submission:
   language: go
   entrypoint: starter/starter.go
+  starter: learner/starter.go
   interface: bytearena.fairgate.Limiter/v1
 build:
   command: ["go", "test", "./challenges/fair-gate-easy/..."]

@@ -9,26 +9,16 @@
       "kind": "figure",
       "label": "FIG 1",
       "illustration": {
-        "id": "systems.timeline",
+        "id": "systems.ranges",
         "props": {
-          "label": "Fixed event-time windows",
-          "windows": [
-            {
-              "label": "Window 0",
-              "range": "[0, 10)",
-              "events": [
-                { "label": "api +3", "tone": "accent" },
-                { "label": "api +5", "tone": "accent" }
-              ],
-              "finalized": true
-            },
-            {
-              "label": "Window 1",
-              "range": "[10, 20)",
-              "events": [{ "label": "db +2", "tone": "warning" }]
-            }
+          "title": "Half-open windows on the event-time axis",
+          "min": 0,
+          "max": 20,
+          "rows": [
+            { "label": "[0, 10)", "start": 0, "end": 10, "tone": "signal", "note": "api +3 and api +5 · emit count 2, sum 8" },
+            { "label": "[10, 20)", "start": 10, "end": 20, "tone": "warning", "note": "db +2 · still live at watermark 10" }
           ],
-          "watermark": "10"
+          "markers": [{ "at": 10, "label": "watermark", "tone": "accent" }]
         }
       },
       "caption": "At watermark 10, Window 0 is final: emit api(count=2, sum=8) and evict it. Window 1 remains live."
@@ -72,7 +62,7 @@
       "kind": "callout",
       "tone": "note",
       "title": "Why the metrics fit the model",
-      "md": "Throughput rewards a small hot path; peak state checks timely eviction; output delay checks prompt finalization; allocation bytes reveal per-event churn."
+      "md": "Peak state checks timely eviction; allocation bytes reveal per-event churn. In the public harness, event throughput follows the fixed virtual-time trace and output delay is fixed for any correct implementation that emits at the watermark. These counters provide context, not evidence that one correct operator is faster."
     }
   ]
 }

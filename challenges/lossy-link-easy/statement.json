@@ -3,21 +3,24 @@
   "blocks": [
     {
       "kind": "prose",
-      "md": "Build reliability above an unreliable link. With only one unacknowledged packet at a time, the protocol needs a sequence bit, a checksum, an acknowledgement, and a retransmission timer."
+      "md": "Build reliability above an unreliable link. With only one unacknowledged packet at a time, the protocol needs a small wrapping sequence number, a checksum, an acknowledgement, and a retransmission timer."
     },
     {
       "kind": "figure",
       "label": "FIG 1",
       "illustration": {
-        "id": "systems.state",
+        "id": "systems.exchange",
         "props": {
-          "label": "Stop-and-wait sender",
-          "states": [
-            { "label": "Ready", "detail": "Accept the next app chunk", "tone": "signal" },
-            { "label": "Waiting", "detail": "One packet is in flight", "tone": "warning" },
-            { "label": "Advance", "detail": "Matching ACK flips sequence", "tone": "accent" }
-          ],
-          "transitions": ["send DATA", "receive ACK"]
+          "title": "A lost ACK is why duplicates must be safe",
+          "left": "Sender",
+          "right": "Receiver",
+          "events": [
+            { "from": "left", "label": "DATA 0 · abc", "detail": "deliver abc", "tone": "signal" },
+            { "from": "right", "label": "ACK 0", "detail": "waiting", "dropped": true, "tone": "danger" },
+            { "from": "local", "label": "timer fires", "tone": "warning" },
+            { "from": "left", "label": "DATA 0 · retry", "detail": "duplicate, no delivery", "tone": "warning" },
+            { "from": "right", "label": "ACK 0 again", "detail": "advance to 1", "tone": "accent" }
+          ]
         }
       },
       "caption": "Loss or corruption leaves the sender waiting. When its timer fires, it retransmits the same packet; the receiver discards duplicates but repeats the ACK."
@@ -60,7 +63,7 @@
     {
       "kind": "callout",
       "tone": "note",
-      "title": "Read the score as overhead",
+      "title": "Read the metrics as overhead",
       "md": "Completion ticks measure waiting; transmitted bytes, packet count, and retransmissions measure how much extra work reliability required; state bytes price the protocol memory."
     }
   ]

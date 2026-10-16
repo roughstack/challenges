@@ -11,7 +11,7 @@ import (
 
 const (
 	ArenaID      = "cache-pressure-medium"
-	ArenaVersion = "1.0.0"
+	ArenaVersion = "1.0.1"
 	WorkloadID   = "public-smoke-v1"
 )
 
@@ -56,6 +56,8 @@ type PublicConfig struct {
 	Operations    int
 	HotKeys       uint64
 	ScanKeys      uint64
+	// Zero disables the performance floor for small contract-focused tests.
+	MinRequestHitRateBasisPoints uint64
 }
 
 // DefaultPublicConfig returns the fast public smoke workload. The scan is
@@ -74,10 +76,11 @@ func DefaultPublicConfig() PublicConfig {
 		scanKeys = 1
 	}
 	return PublicConfig{
-		CapacityBytes: capacity,
-		Operations:    4096,
-		HotKeys:       16,
-		ScanKeys:      scanKeys,
+		CapacityBytes:                capacity,
+		Operations:                   4096,
+		HotKeys:                      16,
+		ScanKeys:                     scanKeys,
+		MinRequestHitRateBasisPoints: ScanResistanceFloorBasisPoints,
 	}
 }
 
@@ -215,6 +218,9 @@ func Evaluate(seed uint64, config PublicConfig, factory contract.Factory) Result
 	}
 	if reads > 0 {
 		result.Metrics.RequestHitRate = readHits * 10000 / reads
+	}
+	if config.MinRequestHitRateBasisPoints > 0 && result.Metrics.RequestHitRate < config.MinRequestHitRateBasisPoints {
+		result.Violations = append(result.Violations, "request hit rate is below the public minimum")
 	}
 	if peakUsed < config.CapacityBytes {
 		result.Metrics.PeakMemoryHeadroom = config.CapacityBytes - peakUsed
