@@ -9,19 +9,10 @@
       "kind": "figure",
       "label": "FIG 1",
       "illustration": {
-        "id": "systems.ranges",
-        "props": {
-          "title": "One worker · three non-preemptive jobs",
-          "min": 0,
-          "max": 11,
-          "rows": [
-            { "label": "A", "start": 0, "end": 6, "tone": "warning", "note": "Starts at 0; cannot be interrupted when B and C arrive." },
-            { "label": "B", "start": 6, "end": 8, "tone": "signal", "note": "Waits until the worker becomes idle." },
-            { "label": "C", "start": 8, "end": 11, "tone": "accent", "note": "Ordering is chosen only at an idle boundary." }
-          ],
-          "markers": [{ "at": 1, "label": "C arrives", "tone": "danger" }, { "at": 6, "label": "A done", "tone": "signal" }]
-        }
+        "id": "systems.scheduler-story",
+        "props": {}
       },
+      "presentation": "immersive",
       "caption": "Once A starts it owns the worker until tick 6. Better ordering happens only at idle boundaries."
     },
     {
