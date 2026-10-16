@@ -9,18 +9,10 @@
       "kind": "figure",
       "label": "FIG 1",
       "illustration": {
-        "id": "systems.budget",
-        "props": {
-          "title": "A burst of four tokens · refill two per three ticks",
-          "capacity": 4,
-          "snapshots": [
-            { "label": "tick 0 · full", "segments": [{ "label": "available", "value": 4, "tone": "signal" }] },
-            { "label": "tick 0 · after cost 3", "segments": [{ "label": "available", "value": 1, "tone": "warning" }], "note": "a second cost-3 request is rejected" },
-            { "label": "tick 3 · before retry", "segments": [{ "label": "available", "value": 3, "tone": "signal" }], "note": "two tokens accrued lazily" },
-            { "label": "tick 3 · after retry", "segments": [{ "label": "available", "value": 0, "tone": "accent" }], "note": "the retry is now admitted" }
-          ]
-        }
+        "id": "systems.gate-story",
+        "props": {}
       },
+      "presentation": "immersive",
       "caption": "No timer updates the bucket in the background. Each request first accounts for elapsed virtual time, then makes one deterministic decision."
     },
     {
