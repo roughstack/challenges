@@ -9,16 +9,10 @@
       "kind": "figure",
       "label": "FIG 1",
       "illustration": {
-        "id": "systems.snapshot",
-        "props": {
-          "title": "FIFO is defined by when a job becomes available",
-          "rows": [
-            { "label": "Enqueue", "cells": [{ "label": "A", "detail": "ready", "tone": "accent" }, { "label": "B", "detail": "ready", "tone": "accent" }] },
-            { "label": "Lease A", "cells": [{ "label": "B", "detail": "ready", "tone": "accent" }, { "label": "A", "detail": "leased until 10", "tone": "warning" }], "note": "A still occupies capacity while leased." },
-            { "label": "Nack A", "cells": [{ "label": "B", "detail": "next", "tone": "signal" }, { "label": "A", "detail": "back of queue", "tone": "accent" }], "note": "A's old token is now stale." }
-          ]
-        }
+        "id": "systems.queue-story",
+        "props": {}
       },
+      "presentation": "immersive",
       "caption": "Nack or visibility expiry returns a leased job to the back of the available queue. It receives a fresh token when leased again."
     },
     {
